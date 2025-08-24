@@ -1,0 +1,2 @@
+1- import type { route as routeFn } from 'ziggy-js'; => the route contains all the routing logics defined in laravel's routes.
+2- It also includes storage.local that might be the storage path from laravel.
