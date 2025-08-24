@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Validation\Rules;
+use function Laravel\Prompts\error;
 
 class RegisteredUserController extends Controller
 {
@@ -22,8 +23,8 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|maz:225',
-            'email' => 'required|string|lowercase|email|maz:225|unique:'.User::class,
+            'name' => 'required|string|max:225',
+            'email' => 'required|string|lowercase|email|max:225|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
