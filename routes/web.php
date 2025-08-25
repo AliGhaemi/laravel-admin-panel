@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminPanelController;
+use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\DbExpressionTagController;
 use App\Http\Controllers\DbTableController;
 use App\Http\Controllers\RegisteredUserController;
