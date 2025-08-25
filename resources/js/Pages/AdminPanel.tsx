@@ -2,6 +2,7 @@ import {type SharedData} from '@/types';
 import {Head, Link, usePage} from '@inertiajs/react';
 import React, {useState} from "react";
 import Form from "@/Components/Form";
+import DbTableList from "@/Pages/DbTableList";
 
 interface formData {
     DbTableName: string
@@ -19,8 +20,8 @@ export default function AdminPanel() {
     }
 
     return (
-        <div className="text-font pl-5 pt-5">
-            <Form onSubmit={handleFormSubmit} />
+        <div className="text-font p-5">
+            <DbTableList />
         </div>
     );
 }

@@ -14,9 +14,6 @@ class AuthenticatedSessionController extends Controller
 {
     public function create(Request $request): Response
     {
-        if (Auth::check()) {
-            return Inertia::render('AdminPanel', []);
-        }
         return Inertia::render('Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => $request->session()->get('status'),
