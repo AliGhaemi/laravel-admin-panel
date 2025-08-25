@@ -25,11 +25,11 @@ class AdminPanelController extends Controller
 
     public function showAdminPanel(string $c_url)
     {
-        if (auth()->user()->hasPermissionTo('edit blogs')) {
-            dd(123);
-        } else {
-            abort(403, 'Hello, Unauthorized action!');
-        }
+//        if (auth()->user()->hasPermissionTo('edit blogs')) {
+//            dd(123);
+//        } else {
+//            abort(403, 'Hello, Unauthorized action!');
+//        }
 //        TODO: complete this part, very important
         // 3. IMPORTANT: Check if the session ID from the URL matches the user's current session.
         // This prevents one user from seeing another user's chat by changing the URL.
@@ -50,7 +50,7 @@ class AdminPanelController extends Controller
         }
 
         // Return the view with the conversation data
-        return Inertia::render('Dashboard', [
+        return Inertia::render('AdminPanel', [
             'conversation' => $conversation
         ]);
 

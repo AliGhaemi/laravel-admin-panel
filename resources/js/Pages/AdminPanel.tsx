@@ -11,7 +11,7 @@ interface formProps {
     onSubmit: (data: formData) => void;
 }
 
-export default function dashboard() {
+export default function AdminPanel() {
     const {auth} = usePage<SharedData>().props;
 
     const handleFormSubmit = (data: {DbTableName:string}) => {

@@ -29,6 +29,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/', function () {
     return Inertia::render('Home');
 })->name('home');
+//Route::get('/admin_panel', function () {
+//    return Inertia::render('AdminPanel');
+//})->name('admin.show');
 
 //Route::get('/', [DbExpressionTagController::class, 'Home']);
 
