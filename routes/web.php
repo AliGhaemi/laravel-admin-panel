@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\AuthenticatedSessionController;
-use App\Http\Controllers\DbExpressionTagController;
 use App\Http\Controllers\DbTableController;
 use App\Http\Controllers\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
@@ -29,10 +28,5 @@ Route::middleware('auth')->group(function () {
 Route::get('/', function () {
     return Inertia::render('Home');
 })->name('home');
-//Route::get('/admin_panel', function () {
-//    return Inertia::render('AdminPanel');
-//})->name('admin.show');
-
-//Route::get('/', [DbExpressionTagController::class, 'Home']);
 
 Route::post('/do', [DbTableController::class, 'store']);
