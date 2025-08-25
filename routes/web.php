@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\DbExpressionTagController;
 use App\Http\Controllers\DbTableController;
 use App\Http\Controllers\RegisteredUserController;
@@ -17,14 +18,16 @@ Route::middleware('guest')->group(function () {
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 });
+Route::middleware('auth')->group(function () {
+    Route::get('/admin_panel', [AdminPanelController::class, 'handleAdminPanel'])->name('admin.handle');
+// The route that receives the unique ID in the URL.
+    Route::get('/admin_panel/{c_url}', [AdminPanelController::class, 'showAdminPanel'])->name('admin.show');
+});
+
 
 Route::get('/', function () {
     return Inertia::render('Home');
 })->name('home');
-
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
 
 //Route::get('/', [DbExpressionTagController::class, 'Home']);
 
