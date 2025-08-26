@@ -15,7 +15,7 @@ export default function Layout({ children, breadcrumbs, ...props }: LayoutProps)
             <Head title="Dashboard" />
             {/*<Header />*/}
             <Sidebar>sidebar</Sidebar>
-            <main className="ml-90 dark:bg-primary h-screen">{children}</main>
+            <main className="ml-90 dark:bg-primary text-font h-full">{children}</main>
             {/*<footer>footer</footer>*/}
         </>
     );

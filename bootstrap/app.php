@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectUsersTo('/admin_panel');
-        $middleware->redirectGuestsTo('/Register');
+        $middleware->redirectGuestsTo('/register');
         $middleware->web(append: [
             HandleInertiaRequests::class,
         ]);

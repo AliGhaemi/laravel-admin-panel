@@ -12,7 +12,7 @@ interface formProps {
     onSubmit: (data: formData) => void;
 }
 
-export default function AdminPanel() {
+export default function AdminPanel({tableNames}) {
     const {auth} = usePage<SharedData>().props;
 
     const handleFormSubmit = (data: {DbTableName:string}) => {
@@ -20,8 +20,8 @@ export default function AdminPanel() {
     }
 
     return (
-        <div className="text-font p-5">
-            <DbTableList />
+        <div className="p-5">
+            <DbTableList tableNames={tableNames} />
         </div>
     );
 }

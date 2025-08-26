@@ -32,9 +32,9 @@ createInertiaApp({
     // resolve: (name) => resolvePageComponent(`./Pages/${name}.tsx`, import.meta.glob('./Pages/**/*.tsx')),
     resolve: name => {
         const pages = import.meta.glob('./Pages/**/*.tsx', {eager: true})
-        console.log(pages)
+        // console.log(pages)
         let page = pages[`./Pages/${name}.tsx`] as { default: PageWithLayout };
-        console.log(page)
+        // console.log(page)
         page.default.layout = name.startsWith('Public/') ? undefined : page => <Layout children={page}/>
         return page
     },

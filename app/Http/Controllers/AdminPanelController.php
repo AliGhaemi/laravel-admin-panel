@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class AdminPanelController extends Controller
@@ -38,21 +41,48 @@ class AdminPanelController extends Controller
 //            return redirect()->route('admin.handle');
 //        }
 
-        // 4. Now we know we are on the correct user's session.
-        // Get the unique conversation from the session.
-        $conversation = session('conversation', []);
-
-        // Example logic to start a new conversation
-        if (empty($conversation)) {
-            $greeting = "Hello, your session ID is: {$c_url}";
-            $conversation[] = ['message' => $greeting, 'sender' => 'AI'];
-            session()->put('conversation', $conversation);
-        }
+        $tables = Schema::getTableListing();
+        $tableNames = array_map(fn($table) => Str::after($table, '.'), $tables);
 
         // Return the view with the conversation data
         return Inertia::render('AdminPanel', [
-            'conversation' => $conversation
+            'tableNames' => $tableNames,
         ]);
 
+    }
+
+    public function showTable(string $c_url, string $table_name)
+    {
+        $indexingDefaults1 = [
+            'email' => 0,      // put 'email' at position 0
+            'name' => 1,       // put 'name' at position 1
+            'created_at' => 2, // at position 2
+            // other columns go at the end
+        ];
+
+        $columns = Schema::getColumnListing($table_name);
+
+        $columnRows = DB::table($table_name)->paginate(10);
+
+        $positions = [
+            'id' => 0,
+            // columns not in this list can go after
+        ];
+
+        // Transform each row
+        $transformedRows = $columnRows->getCollection()->map(function ($item) use ($positions) {
+            // Convert item (object) to array
+            $row = (array)$item;
+            // Reorder keys
+            return reorder_row($row, $positions);
+        });
+
+        // Replace the paginator's collection with transformed collection
+        $columnRows = $columnRows->setCollection($transformedRows);
+
+        return Inertia::render('DbTableColumn', [
+            'columns' => $columns,
+            'columnRows' => $columnRows,
+        ]);
     }
 }
