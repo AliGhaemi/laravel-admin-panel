@@ -29,7 +29,9 @@
     },
     "dependencies": {
         "@inertiajs/react": "^2.1.2",
+        "@reduxjs/toolkit": "^2.8.2",
         "react": "^19.1.1",
-        "react-dom": "^19.1.1"
+        "react-dom": "^19.1.1",
+        "react-redux": "^9.2.0"
     }
 }

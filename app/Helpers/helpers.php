@@ -3,7 +3,6 @@
 if (!function_exists('reorder_row')) {
     function reorder_row(array $row, array $positions): array
     {
-        \Illuminate\Support\Str::
         // Columns sorted by defined positions, others after sorted alphabetically or as-is
         $ordered = [];
 

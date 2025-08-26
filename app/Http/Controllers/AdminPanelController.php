@@ -53,13 +53,6 @@ class AdminPanelController extends Controller
 
     public function showTable(string $c_url, string $table_name)
     {
-        $indexingDefaults1 = [
-            'email' => 0,      // put 'email' at position 0
-            'name' => 1,       // put 'name' at position 1
-            'created_at' => 2, // at position 2
-            // other columns go at the end
-        ];
-
         $columns = Schema::getColumnListing($table_name);
 
         $columnRows = DB::table($table_name)->paginate(10);
@@ -67,6 +60,7 @@ class AdminPanelController extends Controller
         $positions = [
             'id' => 0,
             // columns not in this list can go after
+            // for now for id to be the first index is enough, TODO: add timestamp to be the last index
         ];
 
         // Transform each row

@@ -20,6 +20,8 @@ import '../css/app.css';
 import {createInertiaApp} from '@inertiajs/react';
 import {createRoot} from 'react-dom/client';
 import Layout from "@/Pages/Layout";
+import {Provider} from "react-redux";
+import store from './Redux/store'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -39,7 +41,11 @@ createInertiaApp({
         return page
     },
     setup({el, App, props}) {
-        createRoot(el).render(<App {...props} />)
+        createRoot(el).render(
+            <Provider store={store}>
+                <App {...props} />
+            </Provider>
+        )
     },
     progress: {
         color: '#4B5563',

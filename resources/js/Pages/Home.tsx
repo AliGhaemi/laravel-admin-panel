@@ -1,6 +1,7 @@
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import type { route as routeFn } from 'ziggy-js';
+import {Counter} from "@/Pages/Counter";
 
 export default function Home() {
     const { auth } = usePage<SharedData>().props;
