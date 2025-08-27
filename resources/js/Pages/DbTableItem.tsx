@@ -17,9 +17,9 @@ export default function DbTableItem({item}: {item: string}) {
                     href={`${window.location.pathname}/${item}`}
                     className="bg-utility rounded-md px-4 py-2 hover:bg-hover hover:cursor-pointer"
                 >
-                    + Add
+                    View Rows
                 </Link>
-                <div className="bg-utility rounded-md px-4 py-2 hover:bg-hover hover:cursor-pointer">% Edit</div>
+                <div className="bg-utility rounded-md px-4 py-2 hover:bg-hover hover:cursor-pointer">Add</div>
             </div>
         </li>
     );

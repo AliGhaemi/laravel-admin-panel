@@ -1,7 +1,7 @@
 import {type SharedData} from '@/types';
 import {Head, Link, usePage} from '@inertiajs/react';
 import React, {useState} from "react";
-import Form from "@/Components/Form";
+import OldForm from "@/Components/OldForm";
 import DbTableList from "@/Pages/DbTableList";
 
 interface formData {

@@ -79,4 +79,36 @@ class AdminPanelController extends Controller
             'columnRows' => $columnRows,
         ]);
     }
+
+    public function showRow(string $c_url, string $table_name, string $row_id)
+    {
+        $row = DB::table($table_name)->find($row_id);
+        $columns = Schema::getColumnListing($table_name);
+        return Inertia::render('DbRow', [
+            'row' => $row,
+            'columns' => $columns,
+        ]);
+    }
+
+    public function update(Request $request, string $c_url, string $table_name, string $row_id)
+    {
+        $fieldRules = [
+            'max:255'
+        ];
+
+        $rules = [];
+
+        foreach ($request->all() as $key => $value) {
+            $rules[$key] = $fieldRules;
+        }
+
+        $attributes = $request->validate($rules);
+
+        $row = DB::table($table_name)->where('id', $row_id)->update($attributes);
+
+        return Inertia::render('DbROw', [
+            'row' => $row,
+        ]);
+
+    }
 }
