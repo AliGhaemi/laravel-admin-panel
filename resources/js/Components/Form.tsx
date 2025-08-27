@@ -2,7 +2,8 @@ import {Form as InertiaForm} from '@inertiajs/react'
 import React, {useState} from "react";
 
 export default function Form(props) {
-    // 1. We still use a single object for state, but start it empty
+    // 1A. We still use a single object for state, but start it empty
+    // 1B. TODO: Saving this information in the Redux store is also a good idea
     const [formData, setFormData] = useState({});
 
     // 2. A single, reusable change handler for all inputs
