@@ -34,8 +34,7 @@ class AdminPanelController extends Controller
 //            abort(403, 'Hello, Unauthorized action!');
 //        }
 //        TODO: complete this part, very important
-        // 3. IMPORTANT: Check if the session ID from the URL matches the user's current session.
-        // This prevents one user from seeing another user's chat by changing the URL.
+//        TODO: also save the unique url in db
 //        if (Session::getId() !== $c_url) {
 //            // Redirect them to their own unique page or a generic error page.
 //            return redirect()->route('admin.handle');
