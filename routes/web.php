@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin_panel', [AdminPanelController::class, 'handleAdminPanel'])->name('admin.handle');
 // The route that receives the unique ID in the URL.
     Route::get('/admin_panel/{c_url}', [AdminPanelController::class, 'showAdminPanel'])->name('admin.show');
+
     Route::get('/admin_panel/{c_url}/{table_name}', [AdminPanelController::class, 'showTable'])->name('admin.table.show');
     Route::get('/admin_panel/{c_url}/{table_name}/{row_id}', [AdminPanelController::class, 'showRow'])->name('admin.row.show');
     Route::patch('/admin_panel/{c_url}/{table_name}/{row_id}', [AdminPanelController::class, 'update'])->name('admin.row.update');
