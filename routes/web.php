@@ -18,7 +18,7 @@ Route::middleware('guest')->group(function () {
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 });
-Route::middleware('auth')->group(function () {
+Route::middleware('auth-admin')->group(function () {
     Route::get('/admin_panel', [AdminPanelController::class, 'handleAdminPanel'])->name('admin.handle');
 // The route that receives the unique ID in the URL.
     Route::get('/admin_panel/{c_url}', [AdminPanelController::class, 'showAdminPanel'])->name('admin.show');
