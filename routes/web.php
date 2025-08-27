@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\AuthenticatedSessionController;
-use App\Http\Controllers\DbTableController;
+use App\Http\Controllers\DatabaseOperatorsController;
 use App\Http\Controllers\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,4 +32,4 @@ Route::get('/', function () {
     return Inertia::render('Home');
 })->name('home');
 
-Route::post('/do', [DbTableController::class, 'store']);
+Route::post('/do', [DatabaseOperatorsController::class, 'store']);

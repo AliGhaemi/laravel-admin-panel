@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class DbTableController extends Controller
+class DatabaseOperatorsController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -21,6 +21,8 @@ export default function AdminPanel({tableNames}) {
 
     return (
         <div className="p-5">
+            <OldForm onSubmit={handleFormSubmit} />
+
             <DbTableList tableNames={tableNames} />
         </div>
     );
