@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('access_token')->unique();
+            // TODO: value for addSeconds is going to be dynamic
             $table->dateTime('expires_at')->default(now()->addSeconds(20)->format('Y-m-d H:i:s'));
         });
     }
