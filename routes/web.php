@@ -19,8 +19,9 @@ Route::middleware('guest')->group(function () {
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 });
+Route::get('/admin_panel', [AdminPanelController::class, 'handleAdminPanel'])->name('admin.handle')->middleware(['auth', 'admin']);
+
 Route::middleware('auth-admin')->group(function () {
-    Route::get('/admin_panel', [AdminPanelController::class, 'handleAdminPanel'])->name('admin.handle');
 // The route that receives the unique ID in the URL.
     Route::get('/admin_panel/{c_url}', [AdminPanelController::class, 'showAdminPanel'])->name('admin.show');
 
@@ -28,7 +29,7 @@ Route::middleware('auth-admin')->group(function () {
     Route::get('/admin_panel/{c_url}/{table_name}/{row_id}', [AdminPanelController::class, 'showRow'])->name('admin.row.show');
     Route::patch('/admin_panel/{c_url}/{table_name}/{row_id}', [AdminPanelController::class, 'update'])->name('admin.row.update');
 });
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserProfileController::class, 'show'])->name('profile.show');
 });
 

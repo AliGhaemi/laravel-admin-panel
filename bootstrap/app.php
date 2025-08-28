@@ -3,6 +3,7 @@
 use App\Console\Commands\DeleteAdminAccessToken;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsAdminAccessTokenValid;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Application;
@@ -25,10 +26,11 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->alias([
             'admin' => IsAdmin::class,
+            'admin.token' => IsAdminAccessTokenValid::class,
         ]);
         $middleware->appendToGroup('auth-admin',[
             Authenticate::class,
-            IsAdmin::class,
+            IsAdminAccessTokenValid::class,
             ThrottleRequests::with(5,0.1, ''),
         ]);
     })
