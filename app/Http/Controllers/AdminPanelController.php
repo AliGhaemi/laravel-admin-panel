@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminAccessToken;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
@@ -15,14 +17,23 @@ class AdminPanelController extends Controller
     /**
      * Handles the initial request, gets the session ID, and redirects to the unique URL.
      */
-    public function handleAdminPanel()
+    public function handleAdminPanel(Request $request)
     {
+        $admin_access_token = Auth::user()->adminAccessToken()->first();
+        if ($admin_access_token) {
+            return redirect()->route('admin.show', ['c_url' => $admin_access_token->access_token]);
+        }
         // 1. Get the current session's unique ID.
-        $c_url = random_bytes(20);
-
         // 2A. Encode the bytes into a hexadecimal string
-        // 2B. Redirect to the unique URL using the session ID.
-        return redirect()->route('admin.show', ['c_url' => bin2hex($c_url)]);
+        // 2B. Redirect to the unique URL.
+        $c_url = random_bytes(20);
+        $user_id = Auth::id();
+        $created_c_url = AdminAccessToken::create([
+            'user_id' => $user_id,
+            'access_token' => bin2hex($c_url),
+        ]);
+
+        return redirect()->route('admin.show', ['c_url' => $created_c_url]);
     }
 
 

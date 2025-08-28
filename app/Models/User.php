@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->groups->contains('name', $groupName);
     }
+
+    public function adminAccessToken()
+    {
+        return $this->hasOne(AdminAccessToken::class);
+    }
 }
