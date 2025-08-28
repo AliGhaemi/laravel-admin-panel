@@ -3,7 +3,9 @@
 if (!function_exists('reorder_row')) {
     function reorder_row(array $row, array $positions): array
     {
-        // Columns sorted by defined positions, others after sorted alphabetically or as-is
+        // Columns sorted by defined positions, others after sorted alphabetically or as-is,
+        // TODO: Make sure to convert the json to an array, Check the DbTableColumn.tsx
+        // TODO: I think i overcomplicated this by stating 2 loops
         $ordered = [];
 
         // First, put columns defined in $positions in correct order if they exist in $row
@@ -21,17 +23,5 @@ if (!function_exists('reorder_row')) {
         }
 
         return $ordered;
-    }
-}
-if (!function_exists('generate_unique_code')) {
-    /**
-     * Generate a unique alphanumeric code.
-     *
-     * @param int $length
-     * @return string
-     */
-    function generate_unique_code($length = 8)
-    {
-        return strtoupper(bin2hex(random_bytes($length / 2)));
     }
 }
