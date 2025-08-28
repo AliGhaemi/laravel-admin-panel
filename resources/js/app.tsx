@@ -43,9 +43,9 @@ createInertiaApp({
         // console.log(pages)
         let page = pages[`./Pages/${name}.tsx`] as { default: PageWithLayout };
         // console.log(page)
-        if (isAdmin && auth.user.hasAdminPanelAccess) {
+        // if (isAdmin && auth.user.hasAdminPanelAccess) {
         page.default.layout = name.startsWith('Public/') ? undefined : page => <Layout children={page}/>
-        }
+        // }
         return page
     },
     setup({el, App, props}) {

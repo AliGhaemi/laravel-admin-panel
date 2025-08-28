@@ -35,10 +35,10 @@ class RegisteredUserController extends Controller
         $imagePath = $request->file('user_profile_picture')->store('user_profile_pictures', 'public');
 
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_profile_picture' => $imagePath,
+            'picture_path' => $imagePath,
         ]);
 
         Auth::login($user);
