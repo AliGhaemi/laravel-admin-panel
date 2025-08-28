@@ -23,6 +23,9 @@ class IsAdmin
             if (!$user->is_admin) {
                 abort(403);
             }
+            if ($user->adminAccessToken()->first()->access_token != $request->route('c_url')) {
+                abort(403);
+            }
         }
 
         return $next($request);
