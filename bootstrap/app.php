@@ -21,7 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo('/register');
         $middleware->web(append: [
             HandleInertiaRequests::class,
-            IsAdmin::class,
+//            IsAdmin::class,
         ]);
         $middleware->alias([
             'admin' => IsAdmin::class,
