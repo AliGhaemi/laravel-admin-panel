@@ -10,4 +10,5 @@ class AdminAccessToken extends Model
         'user_id',
         'access_token'
     ];
+    public $timestamps = false;
 }

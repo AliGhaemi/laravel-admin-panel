@@ -33,7 +33,8 @@ class AdminPanelController extends Controller
             'access_token' => bin2hex($c_url),
         ]);
 
-        return redirect()->route('admin.show', ['c_url' => $created_c_url]);
+
+        return redirect()->route('admin.show', ['c_url' => $created_c_url->access_token]);
     }
 
 
