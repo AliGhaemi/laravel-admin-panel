@@ -24,7 +24,7 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         $request->session()->regenerate();
-        return redirect()->intended(route('admin.handle', absolute: false));
+        return redirect()->intended(route('profile.show', absolute: false));
     }
     public function destroy(Request $request): RedirectResponse
     {

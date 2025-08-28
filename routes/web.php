@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\DatabaseOperatorsController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,7 +28,9 @@ Route::middleware('auth-admin')->group(function () {
     Route::get('/admin_panel/{c_url}/{table_name}/{row_id}', [AdminPanelController::class, 'showRow'])->name('admin.row.show');
     Route::patch('/admin_panel/{c_url}/{table_name}/{row_id}', [AdminPanelController::class, 'update'])->name('admin.row.update');
 });
-
+Route::middleware('auth')->group(function() {
+    Route::get('/profile', [UserProfileController::class, 'show'])->name('profile.show');
+});
 
 Route::get('/', function () {
     return Inertia::render('Home');
