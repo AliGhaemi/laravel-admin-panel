@@ -1,0 +1,17 @@
+{
+    "backend": {
+        "middleware": {
+            "Add a middleware to check if the request->auth->user has active admin panel token": {
+                "true": "redirect to admin.show",
+                "false": "abort"
+            }
+        }
+    },
+
+    "frontend" : {
+        "create a profile page with a edit button which links to profile edit page": {
+            "edit": "update profile in backend, save profile image to file storage",
+            "cancel":"redirect to profile panel"
+        }
+    }
+}

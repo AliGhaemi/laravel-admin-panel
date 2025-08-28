@@ -28,6 +28,12 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 type PageWithLayout = React.ComponentType<any> & {
     layout?: React.ComponentType<any>;
 }
+const isAdmin = false;
+const auth = {
+    user: {
+        hasAdminPanelAccess : false,
+    }
+};
 
 createInertiaApp({
     title: (title) => title ? `${title} - ${appName}` : appName,
@@ -37,7 +43,9 @@ createInertiaApp({
         // console.log(pages)
         let page = pages[`./Pages/${name}.tsx`] as { default: PageWithLayout };
         // console.log(page)
+        if (isAdmin && auth.user.hasAdminPanelAccess) {
         page.default.layout = name.startsWith('Public/') ? undefined : page => <Layout children={page}/>
+        }
         return page
     },
     setup({el, App, props}) {
