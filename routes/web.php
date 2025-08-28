@@ -19,8 +19,9 @@ Route::middleware('guest')->group(function () {
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 });
+// Only auth user with is_admin = true
 Route::get('/admin_panel', [AdminPanelController::class, 'handleAdminPanel'])->name('admin.handle')->middleware(['auth', 'admin']);
-
+// Only auth user with valid admin access token
 Route::middleware('auth-admin')->group(function () {
 // The route that receives the unique ID in the URL.
     Route::get('/admin_panel/{c_url}', [AdminPanelController::class, 'showAdminPanel'])->name('admin.show');
