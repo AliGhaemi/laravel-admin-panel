@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\DatabaseLog;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -38,6 +39,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
+        $recent_database_logs = DatabaseLog::latest()->take(3)->get()->toArray();
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -45,6 +47,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'recent_database_logs' => $recent_database_logs,
 //            'ziggy' => fn(): array => [
 //                ...(new Ziggy)->toArray(),
 //                'location' => $request.url(),

@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\DatabaseLogs;
+use App\Models\DatabaseLog;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,12 +10,12 @@ class GlobalDatabaseCrudObserver
 {
     public function created(Model $model): void
     {
-        if ($model instanceof DatabaseLogs) {
+        if ($model instanceof DatabaseLog) {
             return;
         }
 
         if (Auth::check()) {
-            DatabaseLogs::create([
+            DatabaseLog::create([
                 'user_id' => auth()->id(),
                 'crud_type' => 'create',
                 'logged_model_class_name' => get_class($model),
@@ -26,11 +26,11 @@ class GlobalDatabaseCrudObserver
 
     public function updated(Model $model): void
     {
-        if ($model instanceof DatabaseLogs) {
+        if ($model instanceof DatabaseLog) {
             return;
         }
         if (Auth::check()) {
-            DatabaseLogs::create([
+            DatabaseLog::create([
                 'user_id' => auth()->id(),
                 'crud_type' => 'update',
                 'logged_model_class_name' => get_class($model),
@@ -41,11 +41,11 @@ class GlobalDatabaseCrudObserver
 
     public function deleted(Model $model): void
     {
-        if ($model instanceof DatabaseLogs) {
+        if ($model instanceof DatabaseLog) {
             return;
         }
         if (Auth::check()) {
-            DatabaseLogs::create([
+            DatabaseLog::create([
                 'user_id' => auth()->id(),
                 'crud_type' => 'delete',
                 'logged_model_class_name' => get_class($model),

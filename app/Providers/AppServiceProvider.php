@@ -10,7 +10,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    protected $ModelsToBeLogged = [
+    protected $modelsToBeLogged = [
         \App\Models\User::class,
         \App\Models\AdminAccessToken::class,
     ];
@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        foreach ($this->ModelsToBeLogged as $model) {
+        foreach ($this->modelsToBeLogged as $model) {
             $model::observe(GlobalDatabaseCrudObserver::class);
         }
     }
