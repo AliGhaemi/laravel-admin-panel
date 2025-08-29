@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\DatabaseLog;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -29,6 +30,27 @@ class HandleInertiaRequests extends Middleware
         return parent::version($request);
     }
 
+    protected function assignRelatedRow($recentCrud)
+    {
+        $recentCrudWithModels = $recentCrud->map(function ($log) {
+            $modelClassString = $log->logged_model_class_name;
+            if (!class_exists($modelClassString) || !is_subclass_of($modelClassString, Model::class)) {
+                $log->related_model = null;
+                return $log;
+            }
+            $relatedModel = $modelClassString::find($log->logged_row_id);
+
+            if ($relatedModel) {
+                $log->related_model = $relatedModel->toArray();
+            } else {
+                $log->related_model = null;
+            }
+
+            return $log;
+        });
+        return $recentCrudWithModels;
+    }
+
     /**
      * Define the props that are shared by default.
      *
@@ -39,7 +61,10 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
-        $recent_database_logs = DatabaseLog::latest()->take(3)->get()->toArray();
+        $recent_created = DatabaseLog::latest()->where("crud_type","created")->take(3)->get();
+        $recent_updated = DatabaseLog::latest()->where("crud_type","updated")->take(3)->get();
+        $recent_deleted = DatabaseLog::latest()->where("crud_type","deleted")->take(3)->get();
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -47,7 +72,18 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'recent_database_logs' => $recent_database_logs,
+            'recent_created' => [
+                "type"=> "created",
+                $this->assignRelatedRow($recent_created)->toArray()
+            ],
+            'recent_updated' => [
+                "type"=> "updated",
+                $this->assignRelatedRow($recent_updated)->toArray()
+            ],
+            'recent_deleted' => [
+                "type"=> "deleted",
+                $this->assignRelatedRow($recent_deleted)->toArray()
+            ],
 //            'ziggy' => fn(): array => [
 //                ...(new Ziggy)->toArray(),
 //                'location' => $request.url(),
