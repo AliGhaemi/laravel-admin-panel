@@ -6,21 +6,25 @@ import HomeSvg from '../../images/svgs/home.svg';
 import SettingsSvg from '../../images/svgs/settings.svg';
 import PlaySvg from '../../images/svgs/play.svg';
 import {Link, usePage} from "@inertiajs/react";
+import {useState} from "react";
 
 export default function Sidebar() {
     const {auth, quote} = usePage().props
+    const [picture, setPicture] = useState([auth.user.picture_path || ""]);
+    const [username, setUsername] = useState([auth.user.username || ""]);
+    const [is_admin, setIsAdmin] = useState([auth.user.is_admin || ""]);
     return (
         <aside className="w-90 fixed h-full left-0 dark:bg-secondary dark:text-font">
             <div className="flex flex-col gap-y-4 self-start w-90 h-full p-2">
                 <header className="p-5 border-b border-hover" id="sidebar-header">
                     <a href="/">
                         <div className="flex justify-items-start space-x-6 items-center">
-                            <img className="rounded-xl h-12" src={`/storage/${auth.user.picture_path}`}
+                            <img className="rounded-xl h-12" src={`/storage/${picture}`}
                                  alt="HomePage"/>
                             <div>
-                                <p className="text-sm font-bold" id="second">Welcome {auth.user.username}</p>
+                                <p className="text-sm font-bold" id="second">Welcome {username}</p>
                                 <p className="text-sm" id="first">
-                                    {`${auth.user.is_admin ? "Admin User" : ""}`}
+                                    {`${is_admin ? "Admin User" : ""}`}
                                 </p>
                             </div>
                         </div>

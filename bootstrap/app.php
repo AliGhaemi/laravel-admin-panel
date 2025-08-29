@@ -13,11 +13,14 @@ use Illuminate\Routing\Middleware\ThrottleRequests;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        commands: __DIR__.'/../routes/console.php',
+        web: __DIR__ . '/../routes/web.php',
+        commands: __DIR__ . '/../routes/console.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->validateCsrfTokens(except: [
+            '/'
+        ]);
         $middleware->redirectUsersTo('/admin_panel');
         $middleware->redirectGuestsTo('/register');
         $middleware->web(append: [
@@ -28,10 +31,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => IsAdmin::class,
             'admin.token' => IsAdminAccessTokenValid::class,
         ]);
-        $middleware->appendToGroup('auth-admin',[
+        $middleware->appendToGroup('auth-admin', [
             Authenticate::class,
             IsAdminAccessTokenValid::class,
-            ThrottleRequests::with(5,0.1, ''),
+            ThrottleRequests::with(5, 0.1, ''),
         ]);
     })
     ->withSchedule(function (Schedule $schedule) {

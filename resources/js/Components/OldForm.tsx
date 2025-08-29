@@ -78,9 +78,9 @@ export default function OldForm({onSubmit}: formProps) {
     }
 
     return (
-        <div className="text-font pl-5 pt-5">
-            <form className="grid grid-rows-4" onSubmit={handleSubmit}>
-                <div className="block">
+        <div className="text-font p-5 bg-secondary rounded-xl w-full mb-5">
+            <form className="grid grid-rows-3" onSubmit={handleSubmit}>
+                <div className="block mb-3">
                     <label htmlFor="DbTableName" className="block">Table Name</label>
                     <input
                         className="border rounded-sm mt-1 p-1 dark:border-hover dark:bg-utility dark:focus:outline-hover focus:outline-2"
