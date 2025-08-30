@@ -5,6 +5,12 @@
                 "true": "redirect to admin.show",
                 "false": "abort"
             }
+        },
+        "database": {
+            "Change database logs to polymorphic relation": [
+                "loggable for the class and row_id to be logged",
+                "user_id is still the same (foreignId to users)"
+            ]
         }
     },
 
