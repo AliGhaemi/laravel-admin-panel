@@ -70,6 +70,7 @@ class HandleInertiaRequests extends Middleware
 
     protected function getRecent(string $crud_type, int $take)
     {
-        return DatabaseLog::with("loggable")->latest()->where("crud_type", $crud_type)->take($take)->get();
+        // TODO: just to be clear, add a conditional to check if the returned result is not empty.
+        return DatabaseLog::with(["user","loggable"])->latest()->where("crud_type", $crud_type)->take($take)->get();
     }
 }

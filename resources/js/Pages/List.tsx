@@ -23,10 +23,10 @@ export default function List({className}) {
                                     <p className="inline mr-1.5 text-xs">{"-> "}</p>
                                     <a href="#" className="text-blue-600 dark:text-blue-500 hover:underline">
                                         {
-                                            crudItem.related_model == null ?
+                                            crudItem.loggable == null ?
                                                 "no rows found in this model"
                                                 :
-                                                crudItem.logged_model_class_name
+                                                crudItem.loggable_type
                                         }
                                     </a>
                                 </li>

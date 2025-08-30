@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import DbTableItem from "@/Pages/DbTableItem";
 
 export default function DbTableList({tableNames, className}) {
-    console.log(tableNames)
+    // console.log(tableNames)
 
     return (
         <div className={className}>

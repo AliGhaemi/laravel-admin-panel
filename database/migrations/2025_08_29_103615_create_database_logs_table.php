@@ -13,10 +13,10 @@ return new class extends Migration {
         Schema::create('database_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('set null');
-            $table->string('crud_type');
+            $table->string('crud_type')->index();
             $table->morphs('loggable');
             $table->text('description')->nullable();
-            $table->timestamps();
+            $table->timestamps()->index();
         });
     }
 
