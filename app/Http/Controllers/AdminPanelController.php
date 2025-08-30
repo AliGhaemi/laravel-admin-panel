@@ -52,6 +52,8 @@ class AdminPanelController extends Controller
 //            return redirect()->route('admin.handle');
 //        }
 
+//        $grouped_table_names =
+
         $tables = Schema::getTableListing();
         $tableNames = array_map(fn($table) => Str::after($table, '.'), $tables);
 

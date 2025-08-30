@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('phone')->nullable();
             $table->string('picture_path')->nullable();
-            $table->boolean('is_admin')->default(false);
+            // default should be false, set it to true just for debugging purposes
+            $table->boolean('is_admin')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

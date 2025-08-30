@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->string('crud_type')->index();
             $table->morphs('loggable');
             $table->text('description')->nullable();
-            $table->timestamps()->index();
+            $table->timestamps();
+            $table->index('created_at');
         });
     }
 
