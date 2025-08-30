@@ -60,16 +60,18 @@ class DatabaseLogFactory extends Factory
 
     public function definition(): array
     {
-        $user = User::all()->random();
-        $random_class_model = $this->getRandomIdFromModels($this->modelsList)['class'];
-        $random_row_id = $this->getRandomIdFromModels($this->modelsList)['id'];
-
         return [
-            'user_id' => $user->id,
+            'user_id' => User::all()->random()->id,
             'crud_type' => $this->faker->randomElement($this->actionTypes),
-            'logged_model_class_name' => $random_class_model,
-            'logged_row_id' => $random_row_id,
             'description' => $this->faker->text,
         ];
+    }
+
+    public function forModel(Model $model)
+    {
+        return $this->state(fn (array $attributes) => [
+            "loggable_id" => $model->getKey(),
+            "loggable_type" => $model->getMorphClass(),
+        ]);
     }
 }

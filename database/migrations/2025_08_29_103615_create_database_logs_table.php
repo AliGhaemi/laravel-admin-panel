@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,8 +14,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('set null');
             $table->string('crud_type');
-            $table->string('logged_model_class_name');
-            $table->unsignedBigInteger('logged_row_id');
+            $table->morphs('loggable');
             $table->text('description')->nullable();
             $table->timestamps();
         });

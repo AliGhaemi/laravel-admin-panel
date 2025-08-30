@@ -8,11 +8,18 @@ use Illuminate\Database\Seeder;
 
 class DatabaseLogSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    protected $modelsList = [
+        \App\Models\User::class,
+        \App\Models\AdminAccessToken::class,
+        \App\Models\Permission::class,
+        \App\Models\Group::class,
+    ];
+
     public function run(): void
     {
-        DatabaseLog::factory()->count(10)->create();
+        foreach ($this->modelsList as $model) {
+            $randomModel = $model::inRandomOrder()->first();
+            DatabaseLog::factory()->forModel($randomModel)->count(5)->create();
+        }
     }
 }

@@ -8,6 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class GlobalDatabaseCrudObserver
 {
+    protected function ModifyDatabaseLog(Model $model, string $crud_type)
+    {
+        DatabaseLog::create([
+            'user_id' => auth()->id(),
+            'crud_type' => $crud_type,
+            'loggable_id' => $model->getKey(),
+            'loggable_type' => $model::class,
+            'details' => json_encode($model->getDirty()),
+        ]);
+    }
+
     public function created(Model $model): void
     {
         if ($model instanceof DatabaseLog) {
@@ -15,12 +26,7 @@ class GlobalDatabaseCrudObserver
         }
 
         if (Auth::check()) {
-            DatabaseLog::create([
-                'user_id' => auth()->id(),
-                'crud_type' => 'create',
-                'logged_model_class_name' => get_class($model),
-                'logged_row_id' => $model->id,
-            ]);
+            $this->ModifyDatabaseLog($model, 'created');
         }
     }
 
@@ -30,12 +36,7 @@ class GlobalDatabaseCrudObserver
             return;
         }
         if (Auth::check()) {
-            DatabaseLog::create([
-                'user_id' => auth()->id(),
-                'crud_type' => 'update',
-                'logged_model_class_name' => get_class($model),
-                'logged_row_id' => $model->id,
-            ]);
+            $this->ModifyDatabaseLog($model, 'updated');
         }
     }
 
@@ -45,12 +46,7 @@ class GlobalDatabaseCrudObserver
             return;
         }
         if (Auth::check()) {
-            DatabaseLog::create([
-                'user_id' => auth()->id(),
-                'crud_type' => 'delete',
-                'logged_model_class_name' => get_class($model),
-                'logged_row_id' => $model->id,
-            ]);
+            $this->ModifyDatabaseLog($model, 'deleted');
         }
     }
 }
