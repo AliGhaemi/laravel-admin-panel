@@ -63,8 +63,11 @@ class HandleInertiaRequests extends Middleware
     {
         $result = [
             "type" => $crud_type,
-            DatabaseLog::with(["user", "loggable"])->latest()->where("crud_type", $crud_type)->take($take)->get(),
+            "logs" => DatabaseLog::with(["user", "loggable"])->latest()->where("crud_type", $crud_type)->take($take)->get(),
         ];
+        foreach ($result["logs"] as $key => $value) {
+            $result["logs"][$key]["table_name"] = (new $value->loggable_type)->getTable();
+        }
         // TODO: just to be clear, add a conditional to check if the returned result is not empty.
         return $result;
     }

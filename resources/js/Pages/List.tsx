@@ -17,16 +17,16 @@ export default function List({className}) {
                 <li className="border-b border-hover pb-3 mb-3 text-md last:border-none">
                     Recently {item.type}
                     <ul className="px-3 pt-1 text-sm">
-                        {item[0].map((crudItem) => (
+                        {item.logs.map((crudItem) => (
                             <>
                                 <li>
                                     <p className="inline mr-1.5 text-xs">{"-> "}</p>
-                                    <a href="#" className="text-blue-600 dark:text-blue-500 hover:underline">
+                                    <a href={`${window.location.pathname}/${crudItem.table_name}/${crudItem.loggable.id}`} className="text-blue-600 dark:text-blue-500 hover:underline">
                                         {
                                             crudItem.loggable == null ?
                                                 "no rows found in this model"
                                                 :
-                                                crudItem.loggable_type
+                                                `${crudItem.user.username} ${item.type} ${crudItem.loggable_type}`
                                         }
                                     </a>
                                 </li>

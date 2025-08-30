@@ -25,7 +25,7 @@ export default function AdminPanel({tableNames}) {
             <OldForm onSubmit={handleFormSubmit}/>
             <div className="grid grid-cols-4 gap-5">
                 <DbTableList className="col-span-3" tableNames={tableNames}/>
-                <List className="p-5 rounded-xl bg-secondary h-96" />
+                <List className="p-5 rounded-xl bg-secondary h-fit" />
             </div>
 
 
