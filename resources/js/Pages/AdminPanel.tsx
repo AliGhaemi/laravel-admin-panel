@@ -13,7 +13,7 @@ interface formProps {
     onSubmit: (data: formData) => void;
 }
 
-export default function AdminPanel({tableNames}) {
+export default function AdminPanel({CategorizedTableNames, UncategorizedTableNames}) {
     const {auth} = usePage<SharedData>().props;
 
     const handleFormSubmit = (data: { DbTableName: string }) => {
@@ -24,7 +24,10 @@ export default function AdminPanel({tableNames}) {
         <div className="p-5">
             {/*<OldForm onSubmit={handleFormSubmit}/>*/}
             <div className="grid grid-cols-6 gap-5">
-                <DbTableList className="col-span-4" tableNames={tableNames}/>
+                <DbTableList className="col-span-4"
+                             CategorizedTableNames={CategorizedTableNames}
+                             UncategorizedTableNames={UncategorizedTableNames}
+                />
                 <List className="p-5 rounded-xl col-span-2 bg-secondary h-fit" />
             </div>
         </div>

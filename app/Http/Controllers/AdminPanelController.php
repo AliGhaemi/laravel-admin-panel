@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminAccessToken;
+use App\Models\Category;
+use App\Models\TableName;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,14 +54,16 @@ class AdminPanelController extends Controller
 //            return redirect()->route('admin.handle');
 //        }
 
-//        $grouped_table_names =
+        $categorized_table_names = Category::with('tableNames')->get();
+        $uncategorized_table_names = TableName::whereNull('category_id')->get();
 
         $tables = Schema::getTableListing();
         $tableNames = array_map(fn($table) => Str::after($table, '.'), $tables);
 
         // Return the view with the conversation data
         return Inertia::render('AdminPanel', [
-            'tableNames' => $tableNames,
+            'CategorizedTableNames' => $categorized_table_names,
+            'UncategorizedTableNames' => $uncategorized_table_names,
         ]);
 
     }
