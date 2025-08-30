@@ -22,13 +22,11 @@ export default function AdminPanel({tableNames}) {
 
     return (
         <div className="p-5">
-            <OldForm onSubmit={handleFormSubmit}/>
-            <div className="grid grid-cols-4 gap-5">
-                <DbTableList className="col-span-3" tableNames={tableNames}/>
-                <List className="p-5 rounded-xl bg-secondary h-fit" />
+            {/*<OldForm onSubmit={handleFormSubmit}/>*/}
+            <div className="grid grid-cols-6 gap-5">
+                <DbTableList className="col-span-4" tableNames={tableNames}/>
+                <List className="p-5 rounded-xl col-span-2 bg-secondary h-fit" />
             </div>
-
-
         </div>
     );
 }

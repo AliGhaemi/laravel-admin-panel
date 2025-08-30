@@ -1,4 +1,4 @@
-import {usePage} from "@inertiajs/react";
+import {Link, usePage} from "@inertiajs/react";
 import {useState} from "react";
 
 export default function List({className}) {
@@ -21,14 +21,17 @@ export default function List({className}) {
                             <>
                                 <li>
                                     <p className="inline mr-1.5 text-xs">{"-> "}</p>
-                                    <a href={`${window.location.pathname}/${crudItem.table_name}/${crudItem.loggable.id}`} className="text-blue-600 dark:text-blue-500 hover:underline">
+                                    <Link
+                                        href={`${window.location.pathname}/${crudItem.table_name}/${crudItem.loggable.id}`}
+                                        className="text-blue-600 dark:text-blue-500 hover:underline"
+                                        method="get">
                                         {
                                             crudItem.loggable == null ?
                                                 "no rows found in this model"
                                                 :
                                                 `${crudItem.user.username} ${item.type} ${crudItem.loggable_type}`
                                         }
-                                    </a>
+                                    </Link>
                                 </li>
                             </>
                         ))}
