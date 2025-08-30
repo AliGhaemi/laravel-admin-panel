@@ -30,27 +30,6 @@ class HandleInertiaRequests extends Middleware
         return parent::version($request);
     }
 
-    protected function assignRelatedRow($recentCrud)
-    {
-        $recentCrudWithModels = $recentCrud->map(function ($log) {
-            $modelClassString = $log->logged_model_class_name;
-            if (!class_exists($modelClassString) || !is_subclass_of($modelClassString, Model::class)) {
-                $log->related_model = null;
-                return $log;
-            }
-            $relatedModel = $modelClassString::find($log->logged_row_id);
-
-            if ($relatedModel) {
-                $log->related_model = $relatedModel->toArray();
-            } else {
-                $log->related_model = null;
-            }
-
-            return $log;
-        });
-        return $recentCrudWithModels;
-    }
-
     /**
      * Define the props that are shared by default.
      *
@@ -61,9 +40,6 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
-        $recent_created = DatabaseLog::latest()->where("crud_type","created")->take(3)->get();
-        $recent_updated = DatabaseLog::latest()->where("crud_type","updated")->take(3)->get();
-        $recent_deleted = DatabaseLog::latest()->where("crud_type","deleted")->take(3)->get();
 
         return [
             ...parent::share($request),
@@ -73,16 +49,16 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'recent_created' => [
-                "type"=> "created",
-                $this->assignRelatedRow($recent_created)->toArray()
+                "type" => "created",
+                $this->getRecent('created', 3)
             ],
             'recent_updated' => [
-                "type"=> "updated",
-                $this->assignRelatedRow($recent_updated)->toArray()
+                "type" => "updated",
+                $this->getRecent('updated', 3)
             ],
             'recent_deleted' => [
-                "type"=> "deleted",
-                $this->assignRelatedRow($recent_deleted)->toArray()
+                "type" => "deleted",
+                $this->getRecent('deleted', 3)
             ],
 //            'ziggy' => fn(): array => [
 //                ...(new Ziggy)->toArray(),
@@ -90,5 +66,10 @@ class HandleInertiaRequests extends Middleware
 //            ]
             //
         ];
+    }
+
+    protected function getRecent(string $crud_type, int $take)
+    {
+        return DatabaseLog::with("loggable")->latest()->where("crud_type", $crud_type)->take($take)->get();
     }
 }
