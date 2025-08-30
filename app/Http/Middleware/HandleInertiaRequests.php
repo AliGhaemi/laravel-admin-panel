@@ -48,18 +48,9 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'recent_created' => [
-                "type" => "created",
-                $this->getRecent('created', 3)
-            ],
-            'recent_updated' => [
-                "type" => "updated",
-                $this->getRecent('updated', 3)
-            ],
-            'recent_deleted' => [
-                "type" => "deleted",
-                $this->getRecent('deleted', 3)
-            ],
+            'recent_created' => $this->getRecent('created', 3),
+            'recent_updated' => $this->getRecent('updated', 3),
+            'recent_deleted' => $this->getRecent('deleted', 3),
 //            'ziggy' => fn(): array => [
 //                ...(new Ziggy)->toArray(),
 //                'location' => $request.url(),
@@ -70,7 +61,11 @@ class HandleInertiaRequests extends Middleware
 
     protected function getRecent(string $crud_type, int $take)
     {
+        $result = [
+            "type" => $crud_type,
+            DatabaseLog::with(["user", "loggable"])->latest()->where("crud_type", $crud_type)->take($take)->get(),
+        ];
         // TODO: just to be clear, add a conditional to check if the returned result is not empty.
-        return DatabaseLog::with(["user","loggable"])->latest()->where("crud_type", $crud_type)->take($take)->get();
+        return $result;
     }
 }
