@@ -21,15 +21,14 @@ export default function AdminPanel({CategorizedTableNames, UncategorizedTableNam
     }
 
     return (
-        <div className="p-5">
-            {/*<OldForm onSubmit={handleFormSubmit}/>*/}
-            <div className="grid grid-cols-6 gap-5">
-                <DbTableList className="col-span-4"
-                             CategorizedTableNames={CategorizedTableNames}
-                             UncategorizedTableNames={UncategorizedTableNames}
-                />
-                <List className="p-5 rounded-xl col-span-2 bg-secondary h-fit" />
-            </div>
+        <div className="grid grid-cols-6 gap-5 p-5 relative h-screen overflow-y-scroll">
+            <DbTableList className="col-span-4 sticky"
+                         CategorizedTableNames={CategorizedTableNames}
+                         UncategorizedTableNames={UncategorizedTableNames}
+            />
+            <List className="p-5 rounded-xl col-span-2 sticky h-fit top-0"/>
+            {/*<List className="p-5 rounded-xl col-span-2 h-fit" />*/}
         </div>
-    );
+    )
+        ;
 }
