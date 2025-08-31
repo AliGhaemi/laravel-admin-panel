@@ -6,13 +6,20 @@ import HomeSvg from '../../images/svgs/home.svg';
 import SettingsSvg from '../../images/svgs/settings.svg';
 import PlaySvg from '../../images/svgs/play.svg';
 import {Link, usePage} from "@inertiajs/react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function Sidebar() {
     const {auth, quote} = usePage().props
-    const [picture, setPicture] = useState([auth.user.picture_path || ""]);
-    const [username, setUsername] = useState([auth.user.username || ""]);
-    const [is_admin, setIsAdmin] = useState([auth.user.is_admin || ""]);
+    const [picture, setPicture] = useState("");
+    const [username, setUsername] = useState("");
+    const [is_admin, setIsAdmin] = useState("");
+
+    useEffect(() => {
+        console.log()
+        setPicture(Object.keys(auth).length > 0 ? auth.user.picture_path : "")
+        setUsername(Object.keys(auth).length > 0 ? auth.user.username : "")
+        setIsAdmin(Object.keys(auth).length > 0 ? auth.user.is_admin : "")
+    }, [auth])
     return (
         <aside className="w-90 fixed h-full left-0 dark:bg-secondary dark:text-font">
             <div className="flex flex-col gap-y-4 self-start w-90 h-full p-2">
