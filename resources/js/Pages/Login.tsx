@@ -25,7 +25,7 @@ export default function Login() {
                         </div>
                         <button
                             type="submit" className="bg-utility hover:bg-hover text-font font-bold rounded h-12 mt-3 mr-3 w-full"
-                        >Register</button>
+                        >Login</button>
                         {console.log(errors)}
                     </>
                 )}
