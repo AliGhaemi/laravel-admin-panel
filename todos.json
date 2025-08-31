@@ -3,14 +3,23 @@
         "middleware": {
             "Add a middleware to check if the request->auth->user has active admin panel token": {
                 "true": "redirect to admin.show",
-                "false": "abort"
+                "false": "abort",
+                "status": "pending"
             }
         },
         "database": {
-            "Change database logs to polymorphic relation": [
-                "loggable for the class and row_id to be logged",
-                "user_id is still the same (foreignId to users)"
-            ]
+            "Change database logs to polymorphic relation": {
+                "details": [
+                    "loggable for the class and row_id to be logged",
+                    "user_id is still the same (foreignId to users)"
+                ],
+                "status": "pending"
+            }
+        },
+        "models": {
+            "The models and controllers need to be reorganized because the current logic for the models is located within the controllers" : {
+                "status": "pending"
+            }
         }
     },
 
