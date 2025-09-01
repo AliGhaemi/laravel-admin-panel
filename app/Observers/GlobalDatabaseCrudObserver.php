@@ -15,7 +15,7 @@ class GlobalDatabaseCrudObserver
             'crud_type' => $crud_type,
             'loggable_id' => $model->getKey(),
             'loggable_type' => $model::class,
-            'details' => json_encode($model->getDirty()),
+            'description' => json_encode($model->getDirty()),
         ]);
     }
 
