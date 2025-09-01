@@ -6,6 +6,7 @@ use App\Models\AdminAccessToken;
 use App\Models\Category;
 use App\Models\TableName;
 use App\Models\User;
+use App\Services\AdminAccessTokenService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,56 +20,29 @@ class AdminPanelController extends Controller
     /**
      * Handles the initial request, gets the session ID, and redirects to the unique URL.
      */
-    public function handleAdminPanel(Request $request)
+    public function handleAdminPanel(AdminAccessTokenService $service)
     {
         $admin_access_token = Auth::user()->adminAccessToken()->first();
         if ($admin_access_token) {
             return redirect()->route('admin.show', ['c_url' => $admin_access_token->access_token]);
         }
-        // 1. Get the current session's unique ID.
-        // 2A. Encode the bytes into a hexadecimal string
-        // 2B. Redirect to the unique URL.
-        $c_url = random_bytes(20);
-        $user_id = Auth::id();
-        $created_c_url = AdminAccessToken::create([
-            'user_id' => $user_id,
-            'access_token' => bin2hex($c_url),
-        ]);
 
-
-        return redirect()->route('admin.show', ['c_url' => $created_c_url->access_token]);
+        return redirect()->route('admin.show', ['c_url' => $service->createAdminAccessToken()->access_token]);
     }
 
 
-    public function showAdminPanel(string $c_url)
+    public function showAdminPanel()
     {
-//        if (auth()->user()->hasPermissionTo('edit blogs')) {
-//            dd(123);
-//        } else {
-//            abort(403, 'Hello, Unauthorized action!');
-//        }
-//        TODO: complete this part, very important
-//        TODO: also save the unique url in db
-//        if (Session::getId() !== $c_url) {
-//            // Redirect them to their own unique page or a generic error page.
-//            return redirect()->route('admin.handle');
-//        }
-
         $categorized_table_names = Category::with('tableNames')->get();
         $uncategorized_table_names = TableName::whereNull('category_id')->get();
 
-        $tables = Schema::getTableListing();
-        $tableNames = array_map(fn($table) => Str::after($table, '.'), $tables);
-
-        // Return the view with the conversation data
         return Inertia::render('AdminPanel', [
             'CategorizedTableNames' => $categorized_table_names,
             'UncategorizedTableNames' => $uncategorized_table_names,
         ]);
-
     }
 
-    public function showTable(string $c_url, string $table_name)
+    public function showTable(string $table_name)
     {
         $columns = Schema::getColumnListing($table_name);
 
@@ -97,7 +71,7 @@ class AdminPanelController extends Controller
         ]);
     }
 
-    public function showRow(string $c_url, string $table_name, string $row_id)
+    public function showRow(string $table_name, string $row_id)
     {
         $row = DB::table($table_name)->find($row_id);
         $columns = Schema::getColumnListing($table_name);
@@ -107,7 +81,7 @@ class AdminPanelController extends Controller
         ]);
     }
 
-    public function update(Request $request, string $c_url, string $table_name, string $row_id)
+    public function update(Request $request,string $table_name, string $row_id)
     {
         $fieldRules = [
             'max:255'
