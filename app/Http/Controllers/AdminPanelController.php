@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\TableName;
 use App\Models\User;
 use App\Services\AdminAccessTokenService;
+use App\Services\TableRowsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -42,32 +43,13 @@ class AdminPanelController extends Controller
         ]);
     }
 
-    public function showTable(string $table_name)
+    public function showTable(string $c_url, string $table_name, TableRowsService $service)
     {
         $columns = Schema::getColumnListing($table_name);
 
-        $columnRows = DB::table($table_name)->paginate(10);
-
-        $positions = [
-            'id' => 0,
-            // columns not in this list can go after
-            // for now for id to be the first index is enough, TODO: add timestamp to be the last index
-        ];
-
-        // Transform each row
-        $transformedRows = $columnRows->getCollection()->map(function ($item) use ($positions) {
-            // Convert item (object) to array
-            $row = (array)$item;
-            // Reorder keys
-            return reorder_row($row, $positions);
-        });
-
-        // Replace the paginator's collection with transformed collection
-        $columnRows = $columnRows->setCollection($transformedRows);
-
         return Inertia::render('DbTableColumn', [
             'columns' => $columns,
-            'columnRows' => $columnRows,
+            'columnRows' => $service->getReorderedRows($table_name),
         ]);
     }
 
