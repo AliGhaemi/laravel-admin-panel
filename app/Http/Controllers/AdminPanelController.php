@@ -53,7 +53,7 @@ class AdminPanelController extends Controller
         ]);
     }
 
-    public function showRow(string $table_name, string $row_id)
+    public function showRow(string $c_url, string $table_name, string $row_id)
     {
         $row = DB::table($table_name)->find($row_id);
         $columns = Schema::getColumnListing($table_name);
@@ -63,25 +63,28 @@ class AdminPanelController extends Controller
         ]);
     }
 
-    public function update(Request $request,string $table_name, string $row_id)
-    {
-        $fieldRules = [
-            'max:255'
-        ];
-
-        $rules = [];
-
-        foreach ($request->all() as $key => $value) {
-            $rules[$key] = $fieldRules;
-        }
-
-        $attributes = $request->validate($rules);
-
-        $row = DB::table($table_name)->where('id', $row_id)->update($attributes);
-
-        return Inertia::render('DbROw', [
-            'row' => $row,
-        ]);
-
-    }
+//    public function update(Request $request, string $table_name, string $row_id)
+//    {
+//        // This is just a case show to how handle this behavior
+//        // $rules should be stored in database with a foreign_id to table_name_id
+//        // this way all the rules are stored in database and can be called when validating
+//        // the purpose of this is dynamic validation
+//        $fieldRules = [
+//            'max:255'
+//        ];
+//
+//        $rules = [];
+//
+//        foreach ($request->all() as $key => $value) {
+//            $rules[$key] = $fieldRules;
+//        }
+//
+//        $attributes = $request->validate($rules);
+//        $row = DB::table($table_name)->where('id', $row_id)->update($attributes);
+//
+//        return Inertia::render('DbROw', [
+//            'row' => $row,
+//        ]);
+//
+//    }
 }
