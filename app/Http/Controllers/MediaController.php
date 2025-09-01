@@ -16,12 +16,8 @@ class MediaController extends Controller
 
     public function index()
     {
-        $folders = $this->mediaManagerService->getPublicFolderNames();
-        $images = $this->mediaManagerService->getImagePaths();
-
         return Inertia::render('Media', [
-            'folders' => $folders,
-            'images' => $images,
+            'media_paths' => $this->mediaManagerService->getMediaPaths()
         ]);
     }
 }

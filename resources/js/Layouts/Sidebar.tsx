@@ -16,9 +16,9 @@ export default function Sidebar() {
 
     useEffect(() => {
         console.log()
-        setPicture(Object.keys(auth).length > 0 ? auth.user.picture_path : "")
-        setUsername(Object.keys(auth).length > 0 ? auth.user.username : "")
-        setIsAdmin(Object.keys(auth).length > 0 ? auth.user.is_admin : "")
+        // setPicture(Object.keys(auth).length > 0 ? auth.user.picture_path : "")
+        // setUsername(Object.keys(auth).length > 0 ? auth.user.username : "")
+        // setIsAdmin(Object.keys(auth).length > 0 ? auth.user.is_admin : "")
     }, [auth])
     return (
         <aside className="w-90 fixed h-full left-0 dark:bg-secondary dark:text-font">

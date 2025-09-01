@@ -11,8 +11,22 @@ class MediaManagerService
         return Storage::disk('public')->directories();
     }
 
-    public function getImagePaths(): array
+    public function getImagePaths(string $folder_name): array
     {
-        return Storage::disk('public')->files('images');
+        return Storage::disk('public')->files($folder_name);
+    }
+
+    public function getMediaPaths()
+    {
+        $folders = collect($this->getPublicFolderNames());
+        $reformedFolders = $folders->mapWithKeys(function ($folder) {
+            $images = collect($this->getImagePaths($folder))->map(fn($path) => Storage::disk('public')->url($path));
+            return [
+                'name'=> $folder,
+                'content' => $images
+            ];
+        });
+
+        return $reformedFolders;
     }
 }
