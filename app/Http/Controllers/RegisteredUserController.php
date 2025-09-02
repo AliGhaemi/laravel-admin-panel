@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -24,13 +25,7 @@ class RegisteredUserController extends Controller
         return view('register');
     }
 
-    public function store(Request $request) {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'user_profile_picture' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-        ]);
+    public function store(RegisterRequest $request) {
 
         $imagePath = $request->file('user_profile_picture')->store('user_profile_pictures', 'public');
 
@@ -41,26 +36,12 @@ class RegisteredUserController extends Controller
             'picture_path' => $imagePath,
         ]);
 
+        event(new Registered($user));
+
         Auth::login($user);
 
-        return redirect()->route('profile');
-    }
+        $request->session()->regenerate();
 
-//    public function store(Request $request): RedirectResponse
-//    {
-//        $request->validate([
-//            'name' => 'required|string|max:225',
-//            'email' => 'required|string|lowercase|email|max:225|unique:' . User::class,
-//            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-//        ]);
-//
-//        $user = User::create([
-//            'name' => $request->name,
-//            'email' => $request->email,
-//            'password' => Hash::make($request->password)
-//        ]);
-//        event(new Registered($user));
-//        Auth::login($user);
-//        return redirect()->intended(route('profile.show', absolute: false));
-//    }
+        return redirect()->intended(route('profile' , absolute: false));
+    }
 }
