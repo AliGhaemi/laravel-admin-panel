@@ -15,10 +15,10 @@ export default function Sidebar() {
     const [is_admin, setIsAdmin] = useState("");
 
     useEffect(() => {
-        console.log()
-        // setPicture(Object.keys(auth).length > 0 ? auth.user.picture_path : "")
-        // setUsername(Object.keys(auth).length > 0 ? auth.user.username : "")
-        // setIsAdmin(Object.keys(auth).length > 0 ? auth.user.is_admin : "")
+        console.log(auth)
+        setPicture(auth.is_authenticated ? auth.user.picture_path : "")
+        setUsername(auth.is_authenticated ? auth.user.username : "")
+        setIsAdmin(auth.is_authenticated ? auth.user.is_admin : "")
     }, [auth])
     return (
         <aside className="w-90 fixed h-full left-0 dark:bg-secondary dark:text-font">
@@ -63,11 +63,16 @@ export default function Sidebar() {
                                 <p className="my-auto">Database Manager</p>
                             </Link>
                         </li>
-                        <li className="flex flex-row gap-x-5 p-3 hover:bg-hover hover:cursor-pointer transition duration-100 ease-in-out rounded-md">
-                            <img
-                                style={{filter: 'invert(93%) sepia(3%) saturate(536%) hue-rotate(329deg) brightness(104%) contrast(86%)'}}
-                                className="h-6 w-6 my-auto" src={FileSvg} alt="File Logo"/>
-                            <a className="my-auto" href="#">Storage</a>
+                        <li className="">
+                            <Link
+                                href={window.location.href+ "/media"}
+                                className="relative flex flex-row gap-x-5 p-3 hover:bg-hover hover:cursor-pointer transition duration-100 ease-in-out rounded-md"
+                            >
+                                <img
+                                    style={{filter: 'invert(93%) sepia(3%) saturate(536%) hue-rotate(329deg) brightness(104%) contrast(86%)'}}
+                                    className="h-6 w-6 my-auto" src={FileSvg} alt="File Logo"/>
+                                <p className="my-auto">Storage</p>
+                            </Link>
                         </li>
                         <li className="flex flex-row gap-x-5 p-3 hover:bg-hover hover:cursor-pointer transition duration-100 ease-in-out rounded-md">
                             <img

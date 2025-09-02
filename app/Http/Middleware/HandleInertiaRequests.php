@@ -47,6 +47,7 @@ class HandleInertiaRequests extends Middleware
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
                 'user' => $request->user(),
+                'is_authenticated' => auth()->check(),
             ],
             'recent_created' => $this->getRecent('created', 3),
             'recent_updated' => $this->getRecent('updated', 3),
