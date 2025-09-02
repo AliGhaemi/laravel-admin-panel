@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class MediaManagerService
 {
@@ -22,7 +23,7 @@ class MediaManagerService
         $reformedFolders = $folders->mapWithKeys(function ($folder) {
             $images = collect($this->getImagePaths($folder))->map(fn($path) => Storage::disk('public')->url($path));
             return [
-                'name'=> $folder,
+                'name'=> Str::of($folder)->replace('_', ' ')->title(),
                 'content' => $images
             ];
         });
