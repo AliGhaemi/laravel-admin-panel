@@ -44,6 +44,7 @@
 {{--        @viteReactRefresh--}}
 {{--        @vite(['resources/js/app.tsx', "resources/js/Pages/{$page['component']}.tsx"])--}}
 {{--        @inertiaHead--}}
+        @vite(['resources/css/app.css', 'resources/js/app.tsx'])
     </head>
     <body class="font-sans antialiased">
 {{--        @include('partials.header')--}}
