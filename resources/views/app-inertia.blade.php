@@ -30,7 +30,7 @@
             }
         </style>
 
-{{--        <title inertia>{{ config('app.name', 'Laravel') }}</title>--}}
+                <title inertia>{{ config('app.name', 'Laravel') }}</title>
         <title>Posts</title>
 
         <link rel="icon" href="/favicon.ico" sizes="any">
@@ -40,19 +40,13 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet"/>
 
-{{--        @routes--}}
-{{--        @viteReactRefresh--}}
-{{--        @vite(['resources/js/app.tsx', "resources/js/Pages/{$page['component']}.tsx"])--}}
-{{--        @inertiaHead--}}
+        @routes
+        @viteReactRefresh
+        @vite(['resources/js/app.tsx', "resources/js/Pages/{$page['component']}.tsx"])
+        @inertiaHead
         @vite(['resources/css/app.css', 'resources/js/app.tsx'])
     </head>
     <body class="font-sans antialiased">
-{{--        @include('partials.header')--}}
-        @guest
-            @yield('content')
-        @endguest
-{{--        @can('is-admin')--}}
-{{--            @inertia--}}
-{{--        @endcan--}}
+        @inertia
     </body>
 </html>
