@@ -1,11 +1,17 @@
 @extends('app')
 
 @section('content')
-    <h1>Latest Posts</h1>
+    <div class="p-5">
+        <h1 class="text-3xl text-font mb-3">Latest Posts</h1>
 
-{{--    <a href="{{ route('posts.create') }}">Create New Post</a>--}}
+        {{--    <a href="{{ route('posts.create') }}">Create New Post</a>--}}
 
-    <hr>
+        <hr class="text-utility">
 
-    <x-posts.post-list :posts="$posts" />
+        <x-posts.post-list :posts="$posts" :limit="80"/>
+
+        <div class="my-10">
+            {{ $posts->links() }}
+        </div>
+    </div>
 @endsection

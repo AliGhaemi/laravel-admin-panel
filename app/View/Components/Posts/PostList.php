@@ -9,12 +9,14 @@ use Illuminate\View\Component;
 class PostList extends Component
 {
     public $posts;
+    public $limit;
     /**
      * Create a new component instance.
      */
-    public function __construct($posts)
+    public function __construct($posts, $limit = 100)
     {
         $this->posts = $posts;
+        $this->limit = $limit;
     }
 
     /**
