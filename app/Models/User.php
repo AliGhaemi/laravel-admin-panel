@@ -66,4 +66,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(AdminAccessToken::class);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
+    }
 }
