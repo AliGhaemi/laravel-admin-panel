@@ -21,6 +21,7 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(2),
+            'image_path' => $this->faker->imageUrl(),
             'user_id' => $this->faker->numberBetween(1, 10),
         ];
     }

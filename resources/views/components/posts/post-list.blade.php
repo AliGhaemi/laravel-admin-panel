@@ -6,7 +6,7 @@
         <ul class="grid grid-cols-3 gap-5">
             @foreach($posts as $post)
                 <li class="flex flex-col gap-2 items-center text-center rounded-3xl bg-utility overflow-hidden">
-                    <div class="bg-blue-700 w-full h-35"></div>
+                    <img class="bg-blue-700 w-full h-35" alt="1" src="{{ $post->image_path }}">
                     <h3 class="text-md">{{ $post->title }}</h3>
                     <p class="text-sm">{{ Str::limit($post->description, $limit) }}</p>
                 </li>

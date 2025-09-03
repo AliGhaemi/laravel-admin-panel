@@ -11,8 +11,7 @@ class DatabaseLogSeeder extends Seeder
     protected $modelsList = [
         \App\Models\User::class,
         \App\Models\AdminAccessToken::class,
-        \App\Models\Permission::class,
-        \App\Models\Group::class,
+        \App\Models\Post::class,
     ];
 
     public function run(): void
