@@ -1,21 +1,3 @@
-// import './bootstrap';
-//
-// const dropdownClass = document.getElementsByClassName('dropdown-button')
-// const dropdownListItem = document.getElementsByClassName('dropdown-list-item')
-//
-// for (let i= 0; i < dropdownClass.length; i++) {
-//     dropdownClass[i].addEventListener('click', function () {
-//         document.getElementsByClassName('dropdown-list')[i].classList.remove('hidden')
-//     })
-// }
-// // for (let i= 0; i < dropdownListItem.length; i++) {
-// //     dropdownListItem[i].addEventListener('click', function () {
-// //         document.getElementsByTagName('label')[0].
-// //         document.getElementsByTagName('input')[0].value =
-// //     })
-// // }
-
-
 import '../css/app.css';
 import {createInertiaApp} from '@inertiajs/react';
 import {createRoot} from 'react-dom/client';

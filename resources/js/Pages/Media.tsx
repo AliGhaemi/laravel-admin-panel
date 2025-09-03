@@ -9,8 +9,8 @@ export default function Media({media_paths}: Props) {
     return (
         <div className="h-screen flex items-center justify-center">
             <Head title="Media"/>
-            <div className="flex flex-col">
-                <h3 className="text-3xl mb-5">{media_paths.name}</h3>
+            <div className="flex flex-col px-10">
+                <h3 className="text-4xl mb-5">{media_paths.name}</h3>
                 <ul className="grid grid-cols-8 gap-5">
                     {media_paths.content.map((item, index) => (
                         <li>
