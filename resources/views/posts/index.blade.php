@@ -8,7 +8,7 @@
 
         <hr class="text-utility">
 
-        <x-posts.post-list :posts="$posts" :limit="80"/>
+        <x-posts.post-list :posts="$posts" :limit="50"/>
 
         <div class="my-10">
             {{ $posts->links() }}

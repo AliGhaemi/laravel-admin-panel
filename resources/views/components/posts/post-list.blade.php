@@ -3,12 +3,13 @@
         <p>No posts to display</p>
 
     @else
-        <ul class="grid grid-cols-3 gap-5">
+        <ul class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
             @foreach($posts as $post)
-                <li class="flex flex-col gap-2 items-center text-center rounded-3xl bg-utility overflow-hidden">
-                    <img class="bg-blue-700 w-full h-35" alt="1" src="{{ $post->image_path }}">
-                    <h3 class="text-md">{{ $post->title }}</h3>
-                    <p class="text-sm">{{ Str::limit($post->description, $limit) }}</p>
+                <li class="flex flex-col gap-4 items-center text-center rounded-3xl bg-secondary overflow-hidden">
+                    <img class="w-full h-35" alt="1" src="{{ $post->image_path }}">
+                    <h3 class="text-md mx-1">{{ $post->title }}</h3>
+                    <p class="text-sm mx-3 mb-4">{{ Str::limit($post->description, $limit) }}</p>
+                    <a type="button" class="w-full p-3 bg-utility mt-auto flex justify-center items-center hover:bg-hover duration-200 hover:ease-in-out hover:cursor-pointer">Read More</a>
                 </li>
             @endforeach
         </ul>

@@ -7,8 +7,8 @@ use Inertia\Inertia;
 
 Route::get('/', [PostController::class, 'index']);
 //Route::get('/', [PostController::class, 'posts.create']);
-//Route::get('/', function () {
-//    return Inertia::render('Home');
-//})->name('home');
+Route::get('/dashboard', function () {
+    return Inertia::render('Home');
+})->name('home');
 
 Route::post('/do', [DatabaseOperatorsController::class, 'store']);
