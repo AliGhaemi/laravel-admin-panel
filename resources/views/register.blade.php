@@ -1,59 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-</head>
-<body>
+@extends('app')
 
-<h1>Register</h1>
+@section('content')
+    <div class="w-full min-h-full flex flex-col gap-8 justify-center items-center text-font">
+        <h1 class="text-4xl">Register</h1>
 
-<form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
-    @csrf
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data"
+              class="flex flex-col justify-center items-center">
+            @csrf
 
-    <div>
-        <label for="name">Name</label>
-        <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
-        @error('name')
-        <div style="color: red;">{{ $message }}</div>
-        @enderror
+            <div class="flex flex-col gap-3">
+                <label for="name">Name</label>
+                <input class="bg-utility rounded-lg h-10"
+                       id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
+                @error('name')
+                <div style="color: red;">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <label for="email">Email Address</label>
+                <input class="bg-utility rounded-lg h-10"
+                       id="email" type="email" name="email" value="{{ old('email') }}" required>
+                @error('email')
+                <div style="color: red;">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <label for="password">Password</label>
+                <input class="bg-utility rounded-lg h-10"
+                       id="password" type="password" name="password" required>
+                @error('password')
+                <div style="color: red;">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <label for="password_confirmation">Confirm Password</label>
+                <input class="bg-utility rounded-lg h-10"
+                       id="password_confirmation" type="password" name="password_confirmation" required>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <label for="user_profile_picture">User Image</label>
+                <input class="bg-utility rounded-lg h-15 w-50 py-4"
+                    id="user_profile_picture" type="file" name="user_profile_picture" required>
+                @error('user_profile_picture')
+                <div style="color: red;">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <button type="submit" class="bg-utility text-font hover:cursor-pointer px-10 py-3 rounded-lg mt-5">
+                Register
+            </button>
+        </form>
     </div>
-
-    <div>
-        <label for="email">Email Address</label>
-        <input id="email" type="email" name="email" value="{{ old('email') }}" required>
-        @error('email')
-        <div style="color: red;">{{ $message }}</div>
-        @enderror
-    </div>
-
-    <div>
-        <label for="password">Password</label>
-        <input id="password" type="password" name="password" required>
-        @error('password')
-        <div style="color: red;">{{ $message }}</div>
-        @enderror
-    </div>
-
-    <div>
-        <label for="password_confirmation">Confirm Password</label>
-        <input id="password_confirmation" type="password" name="password_confirmation" required>
-    </div>
-
-    <div>
-        <label for="user_profile_picture">User Image</label>
-        <input id="user_profile_picture" type="file" name="user_profile_picture" required>
-        @error('user_profile_picture')
-        <div style="color: red;">{{ $message }}</div>
-        @enderror
-    </div>
-
-    <div>
-        <button type="submit">
-            Register
-        </button>
-    </div>
-</form>
-
-</body>
-</html>
+@endsection

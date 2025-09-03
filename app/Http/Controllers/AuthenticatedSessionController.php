@@ -35,18 +35,13 @@ class AuthenticatedSessionController extends Controller
 //        return redirect()->intended(route('profile.show', absolute: false));
 //    }
 
-    public function store(Request $request) {
-
-        $user = User::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
-
-        Auth::login($user);
+    public function store(Request $request)
+    {
+        $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('/' , absolute: false));
+        return redirect()->intended(route('/', absolute: false));
     }
 
 
