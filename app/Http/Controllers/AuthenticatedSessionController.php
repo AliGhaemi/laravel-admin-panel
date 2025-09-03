@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -37,11 +38,18 @@ class AuthenticatedSessionController extends Controller
 
     public function store(Request $request)
     {
-        $request->authenticate();
+        $attributes = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-        $request->session()->regenerate();
-
-        return redirect()->intended(route('/', absolute: false));
+        if (Auth::attempt($attributes)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }
+        throw ValidationException::withMessages([
+            'email' => trans('auth.failed'),
+        ]);
     }
 
 
