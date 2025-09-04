@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Services\PostService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -36,11 +37,10 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePostRequest $request)
+    public function store(PostRequest $request)
     {
-        $validated = $request->validated();
-        $post = $this->postService->storePost($validated);
-        return redirect()->route('posts.show', ['post' => $post]);
+        $post = $this->postService->storePost($request->validated());
+        return Redirect::route('posts.show', ['post' => $post]);
     }
 
     /**
@@ -58,15 +58,17 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        $this->authorize('update', $post);
+        $this->postService->updatePost($post, $request->validated());
+        return Redirect::route('posts.show', ['post' => $post->slug])->with('status', 'Post updated successfully!');
     }
 
     /**
@@ -78,6 +80,6 @@ class PostController extends Controller
         $this->authorize('delete', $post);
         Storage::disk('public')->delete($post->image_path);
         $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully!' );
+        return Redirect::route('posts.index')->with('status', 'Post deleted successfully!' );
     }
 }
