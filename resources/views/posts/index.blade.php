@@ -1,4 +1,4 @@
-<x-layouts.layout>
+<x-layouts.layout title="Posts">
     <div class="p-5">
         <h1 class="text-3xl text-font mb-3">Latest Posts</h1>
 
