@@ -15,7 +15,7 @@
         @endguest
         @auth
             <a class="bg-utility text-font hover:cursor-pointer px-8 py-3 rounded-lg"
-               href="{{ route('admin.handle') }}">Create Post</a>
+               href="{{ route('posts.store') }}">Create Post</a>
             @can('is-admin')
                 <a class="bg-utility text-font hover:cursor-pointer px-8 py-3 rounded-lg"
                    href="{{ route('admin.handle') }}">Admin Panel</a>
