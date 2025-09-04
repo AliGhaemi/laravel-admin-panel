@@ -9,7 +9,8 @@
                     <img class="w-full h-35" alt="1" src="{{ $post->image_path }}">
                     <h3 class="text-md mx-1">{{ $post->title }}</h3>
                     <p class="text-sm mx-3 mb-4">{{ Str::limit($post->description, $limit) }}</p>
-                    <a type="button" class="w-full p-3 bg-utility mt-auto flex justify-center items-center hover:bg-hover duration-200 hover:ease-in-out hover:cursor-pointer">Read More</a>
+                    <a type="button" href="{{ route('posts.show', ['post' => $post]) }}"
+                       class="w-full p-3 bg-utility mt-auto flex justify-center items-center hover:bg-hover duration-200 hover:ease-in-out hover:cursor-pointer">Read More</a>
                 </li>
             @endforeach
         </ul>
