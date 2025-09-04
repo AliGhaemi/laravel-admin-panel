@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::pattern('table_name', '^[a-z_]+$');
+        Route::pattern('post', '^(?!create|edit|update|delete)[a-z0-9\-]+$');
 
         foreach ($this->modelsToBeLogged as $model) {
             $model::observe(GlobalDatabaseCrudObserver::class);
