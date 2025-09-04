@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Services\PostService;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    use AuthorizesRequests;
    protected $postService;
 
    public function __construct(PostService $postService)
@@ -71,6 +74,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+
+        $this->authorize('delete', $post);
+        Storage::disk('public')->delete($post->image_path);
+        $post->delete();
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully!' );
     }
 }
