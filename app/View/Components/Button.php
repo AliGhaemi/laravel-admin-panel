@@ -9,9 +9,12 @@ use Illuminate\View\Component;
 class Button extends Component
 {
     public $text;
-    public function __construct($text)
+    public $type;
+
+    public function __construct($text, $type = 'button')
     {
         $this->text = $text;
+        $this->type = $type;
     }
     public function render(): View|Closure|string
     {
