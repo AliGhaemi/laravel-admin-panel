@@ -23,5 +23,6 @@ class AssetProvider extends ServiceProvider
         Vite::macro('svgs', fn (string $asset) => $this->asset("resources/images/svgs/{$asset}"));
         Vite::macro('pngs', fn (string $asset) => $this->asset("resources/images/pngs/{$asset}"));
         Vite::macro('jpgs', fn (string $asset) => $this->asset("resources/images/jpgs/{$asset}"));
+        Vite::macro('index', fn (string $asset) => $this->asset("resources/images/{$asset}"));
     }
 }

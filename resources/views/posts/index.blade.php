@@ -1,6 +1,4 @@
-@extends('app')
-
-@section('content')
+<x-layouts.layout>
     <div class="p-5">
         <h1 class="text-3xl text-font mb-3">Latest Posts</h1>
 
@@ -14,4 +12,4 @@
             {{ $posts->links() }}
         </div>
     </div>
-@endsection
+</x-layouts.layout>

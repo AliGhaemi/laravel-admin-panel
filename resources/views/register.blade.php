@@ -1,6 +1,4 @@
-@extends('app')
-
-@section('content')
+<x-layouts.layout>
     <div class="w-full min-h-full flex flex-col gap-8 justify-center items-center text-font">
         <h1 class="text-4xl">Register</h1>
 
@@ -44,7 +42,7 @@
             <div class="flex flex-col gap-3">
                 <label for="user_profile_picture">User Image</label>
                 <input class="bg-utility rounded-lg h-15 w-50 py-4"
-                    id="user_profile_picture" type="file" name="user_profile_picture" required>
+                       id="user_profile_picture" type="file" name="user_profile_picture" required>
                 @error('user_profile_picture')
                 <div style="color: red;">{{ $message }}</div>
                 @enderror
@@ -55,4 +53,4 @@
             </button>
         </form>
     </div>
-@endsection
+</x-layouts.layout>

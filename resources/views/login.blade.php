@@ -1,6 +1,4 @@
-@extends('app')
-
-@section('content')
+<x-layouts.layout>
     <div class="w-full min-h-full flex flex-col gap-8 justify-center items-center text-font">
         <h1 class="text-4xl">Login</h1>
 
@@ -28,4 +26,4 @@
             </button>
         </form>
     </div>
-@endsection
+</x-layouts.layout>
