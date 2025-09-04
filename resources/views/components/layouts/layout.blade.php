@@ -18,7 +18,7 @@
     </head>
     <body class="font-sans antialiased bg-primary h-screen text-font">
         <x-layouts.header />
-        <main class="h-full w-full mt-20">
+        <main class="h-full w-full pt-20">
             {{ $slot }}
         </main>
     </body>
