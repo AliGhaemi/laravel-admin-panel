@@ -10,5 +10,6 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-//    Route::get('/', [PostController::class, 'posts.create']);
+    Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/create', [PostController::class, 'store'])->name('posts.store');
 });

@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Services\PostService;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+   protected $postService;
+
+   public function __construct(PostService $postService)
+   {
+       $this->postService = $postService;
+   }
     public function index(PostService $service)
     {
         return view('posts.index', [
@@ -23,15 +27,17 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $post = $this->postService->storePost($validated);
+        return redirect()->route('posts.show', ['post' => $post]);
     }
 
     /**
