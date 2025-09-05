@@ -27,7 +27,8 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'username' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            // The hashing is done in casts method inside User.php model
+            'password' => $request->password,
             'picture_path' => $imagePath,
         ]);
 
