@@ -20,4 +20,9 @@ class Post extends Model
             $query->slug = Str::slug($query->title);
         });
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

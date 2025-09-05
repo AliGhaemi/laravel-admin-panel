@@ -28,16 +28,55 @@ class PostTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('posts.store'), $data);
 
+
+        $post = Post::firstWhere('title', 'My New Post');
+
         $this->assertDatabaseHas('posts', [
             'title' => 'My New Post',
             'description' => 'My New Post Description',
             'user_id' => $user->id,
+            'image_path' => $post->image_path,
         ]);
-
-        $post = Post::firstWhere('title', 'My New Post');
 
         Storage::disk('public')->assertExists($post->image_path);
 
         $response->assertRedirect(route('posts.show', ['post' => $post]));
+    }
+
+    #[Test]
+    public function owner_of_the_post_can_update_the_post()
+    {
+        $user = User::factory()->create();
+        Storage::fake('public');
+        $previousImage = UploadedFile::fake()->image('previous-image.jpg');
+        $post = Post::factory()->for($user)->create([
+            'image_path' => $previousImage->store('images', 'public'),
+        ]);
+        $newImage = UploadedFile::fake()->image('new-image.jpg');
+
+        $data = [
+            'post-title' => 'My New Updated Post',
+            'post-description' => 'My New Updated Post Description',
+            'post-image' => $newImage,
+        ];
+
+        $response = $this->actingAs($user)->put(route('posts.update', $post), $data);
+
+        $updatedPost = Post::firstWhere('title', 'My New Updated Post');
+        $response->assertRedirect(route('posts.show', $updatedPost));
+
+        $this->assertDatabaseHas('posts', [
+            'title' => 'My New Updated Post',
+            'id' => $post->id,
+            'description' => 'My New Updated Post Description',
+            'image_path' => $updatedPost->image_path,
+        ]);
+
+        Storage::disk('public')->assertExists($updatedPost->image_path);
+        Storage::disk('public')->assertMissing($post->image_path);
+
+        $this->assertDatabaseMissing('posts', [
+            'title' => $post->title
+        ]);
     }
 }
