@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Services\PostService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
@@ -77,5 +78,12 @@ class PostController extends Controller
         Storage::disk('public')->delete($post->image_path);
         $post->delete();
         return Redirect::route('posts.index')->with('status', 'Post deleted successfully!' );
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search-query');
+        $posts = Post::search($search)->get();
+        return view('results', compact('posts'));
     }
 }

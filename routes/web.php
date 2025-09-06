@@ -10,3 +10,5 @@ Route::get('/dashboard', function () {
 })->name('home');
 
 Route::post('/do', [DatabaseOperatorsController::class, 'store']);
+
+Route::get('/search', [PostController::class, 'search'])->name('posts.search');

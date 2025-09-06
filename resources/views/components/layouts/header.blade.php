@@ -9,6 +9,15 @@
             <p>Welcome {{ Auth::user()->username }}!</p>
         </div>
     @endif
+
+    <form action="{{ route('posts.search') }}" method="GET" class="mx-auto flex flex-row justify-center items-center">
+        <div class="flex flex-col relative ">
+            <x-form-field class="w-100 h-12" id="search-query" label="Search" type="text" value="{{ old('query', request('search-query')) }}"/>
+            <x-button type="submit" text="Submit Search" class="absolute right-0 bottom-0 !rounded-l-none border border-l-stone-800 border-y-0 border-r-0 px-2"/>
+        </div>
+
+    </form>
+
     <div class="flex gap-3">
         @guest
             <a class="bg-utility text-font hover:cursor-pointer px-8 py-3 rounded-lg"
