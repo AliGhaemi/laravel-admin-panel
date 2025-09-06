@@ -20,6 +20,9 @@
                     <x-button type="submit" text="Delete Post" class="!bg-red-600"/>
                 </form>
             @endcan
+            <a href="{{ route('posts.edit', $post) }}">
+                <x-button type="submit" text="Update Post" class="!bg-green-600"/>
+            </a>
         </div>
         <img class="w-200" src="{{ asset('storage/'. $post->image_path) }}" alt="{{ $post->title }}">
         <p class="text-xl">
