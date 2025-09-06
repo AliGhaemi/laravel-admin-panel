@@ -4,8 +4,8 @@
               id="{{ $id }}" type="{{ $type }}" name="{{ $id }}" value="{{ $value }}"></textarea>
 @else
     <input {{ $attributes->merge(['class' => 'bg-utility rounded-lg h-10']) }}
-           id="{{ $id }}" type="{{ $type }}" name="{{ $id }}" value="{{ $value }}">
+           id="{{ $id }}" type="{{ $type }}" name="{{ $id }}" @if($value) value="{{ $value }}" @endif>
 @endif
-{{--        @error('name')--}}
-{{--        <div style="color: red;">{{ $message }}</div>--}}
-{{--        @enderror--}}
+@error($id)
+<div style="color: red;">{{ $message }}</div>
+@enderror

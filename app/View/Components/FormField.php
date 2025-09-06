@@ -12,7 +12,8 @@ class FormField extends Component
     public $type;
     public $value;
     public $label;
-    public function __construct($id, $type, $value, $label)
+
+    public function __construct($id, $type, $label, ?string $value = null)
     {
         $this->id = $id;
         $this->label = $label;

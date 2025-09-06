@@ -7,38 +7,21 @@
             @csrf
 
             <div class="flex flex-col gap-3">
-                <label for="name">Name</label>
-                <input class="bg-utility rounded-lg h-10"
-                       id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
-                @error('name')
-                <div style="color: red;">{{ $message }}</div>
-                @enderror
+                <x-form-field class="w-full" label="User's name" id="name" type="text"
+                              value="{{ old('name') }}" required autofocus/>
             </div>
-
             <div class="flex flex-col gap-3">
-                <label for="email">Email Address</label>
-                <input class="bg-utility rounded-lg h-10"
-                       id="email" type="email" name="email" value="{{ old('email') }}" required>
-                @error('email')
-                <div style="color: red;">{{ $message }}</div>
-                @enderror
+                <x-form-field class="w-full" label="Email Address" id="email" type="email"
+                              value="{{ old('email') }}" required autofocus/>
             </div>
-
             <div class="flex flex-col gap-3">
-                <label for="password">Password</label>
-                <input class="bg-utility rounded-lg h-10"
-                       id="password" type="password" name="password" required>
-                @error('password')
-                <div style="color: red;">{{ $message }}</div>
-                @enderror
+                <x-form-field class="w-full" label="Password" id="password" type="password"
+                              value="{{ old('password') }}" required autofocus/>
             </div>
-
             <div class="flex flex-col gap-3">
-                <label for="password_confirmation">Confirm Password</label>
-                <input class="bg-utility rounded-lg h-10"
-                       id="password_confirmation" type="password" name="password_confirmation" required>
+                <x-form-field class="w-full" label="Confirm Password" id="password_confirmation"
+                              type="password" required autofocus/>
             </div>
-
             <div class="flex flex-col gap-3">
                 <label for="user_profile_picture">User Image</label>
                 <input class="bg-utility rounded-lg h-15 w-50 py-4"

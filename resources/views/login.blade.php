@@ -1,29 +1,17 @@
 <x-layouts.layout title="Login">
     <div class="w-full min-h-full flex flex-col gap-8 justify-center items-center text-font">
         <h1 class="text-4xl">Login</h1>
-
         <form method="POST" action="{{ route('login') }}" class="flex flex-col justify-center items-center">
             @csrf
             <div class="flex flex-col gap-3">
-                <label for="email">Email Address</label>
-                <input class="bg-utility rounded-lg h-10"
-                       id="email" type="email" name="email" value="{{ old('email') }}" required>
-                @error('email')
-                <div style="color: red;">{{ $message }}</div>
-                @enderror
+                <x-form-field class="w-full" label="Email Address" id="email" type="email"
+                              value="{{ old('email') }}" required autofocus/>
             </div>
-
             <div class="flex flex-col gap-3">
-                <label for="password">Password</label>
-                <input class="bg-utility rounded-lg h-10"
-                       id="password" type="password" name="password" required>
-                @error('password')
-                <div style="color: red;">{{ $message }}</div>
-                @enderror
+                <x-form-field class="w-full" label="Password" id="password"
+                              type="password" required autofocus/>
             </div>
-            <button type="submit" class="bg-utility text-font hover:cursor-pointer px-10 py-3 rounded-lg mt-5">
-                Login
-            </button>
+            <x-button type="submit" text="Login" class="w-32"/>
         </form>
     </div>
 </x-layouts.layout>
