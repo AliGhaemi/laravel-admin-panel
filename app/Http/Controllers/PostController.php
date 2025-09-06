@@ -83,7 +83,8 @@ class PostController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search-query');
-        $posts = Post::search($search)->get();
+        $sort = $request->input('sort_by');
+        $posts = Post::search($search)->orderBy('description_length', $sort)->get();
         return view('results', compact('posts'));
     }
 }
