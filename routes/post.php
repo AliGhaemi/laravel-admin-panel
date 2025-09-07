@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
 Route::get('/{post:slug}', [PostController::class, 'show'])->name('posts.show');
-Route::get('/comments/{comment}/replies', [CommentController::class, 'showReplies'])->name('replies');
+Route::get('{post}/{comment}/replies', [CommentController::class, 'showReplies'])->name('replies');
 
 Route::middleware('guest')->group(function () {
 });
@@ -17,5 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/{post:slug}', [PostController::class, 'destroy'])->name('posts.destroy');
     Route::get('/{post:slug}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/{post:slug}', [PostController::class, 'update'])->name('posts.update');
+
+    Route::post('/{post:slug}/comments/create', [CommentController::class, 'store'])->name('comments.store');
 });
 
