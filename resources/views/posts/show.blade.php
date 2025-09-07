@@ -4,8 +4,8 @@
         <div class="flex flex-row gap-8 items-center">
             <div class="mr-auto flex flex-row items-center gap-4">
                 <img class="rounded-3xl w-12 h-12"
-                     src="{{ asset('storage/'. Auth::user()->picture_path) }}" alt="{{ Auth::user()->username }}">
-                <p>Welcome {{ Auth::user()->username }}!</p>
+                     src="{{ asset('storage/'. $post->user->picture_path) }}" alt="{{ $post->user->username }}">
+                <p>Publisher {{ $post->user->username }}</p>
             </div>
             <div class="bg-utility w-0.5 h-8"></div>
             <div>
@@ -20,9 +20,11 @@
                     <x-button type="submit" text="Delete Post" class="!bg-red-600"/>
                 </form>
             @endcan
-            <a href="{{ route('posts.edit', $post) }}">
-                <x-button type="submit" text="Update Post" class="!bg-green-600"/>
-            </a>
+            @can('update', $post)
+                <a href="{{ route('posts.edit', $post) }}">
+                    <x-button type="submit" text="Update Post" class="!bg-green-600"/>
+                </a>
+            @endcan
         </div>
         <img class="w-200" src="{{ asset('storage/'. $post->image_path) }}" alt="{{ $post->title }}">
         <p class="text-xl">

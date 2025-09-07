@@ -4,7 +4,7 @@
             "Add a middleware to check if the request->auth->user has active admin panel token": {
                 "true": "redirect to admin.show",
                 "false": "abort",
-                "status": "pending"
+                "status": "done"
             }
         },
         "database": {
@@ -13,12 +13,12 @@
                     "loggable for the class and row_id to be logged",
                     "user_id is still the same (foreignId to users)"
                 ],
-                "status": "pending"
+                "status": "done"
             }
         },
         "models": {
             "The models and controllers need to be reorganized because the current logic for the models is located within the controllers" : {
-                "status": "pending"
+                "status": "done"
             }
         }
     },
@@ -27,6 +27,9 @@
         "create a profile page with a edit button which links to profile edit page": {
             "edit": "update profile in backend, save profile image to file storage",
             "cancel":"redirect to profile panel"
+        },
+        "update link for posts should be authorized for the owner of the post": {
+            "status": "done"
         }
     }
 }
