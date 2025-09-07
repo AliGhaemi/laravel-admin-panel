@@ -46,6 +46,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $post->load(['comments' => function ($query) {
+            $query->whereNull('parent_id');
+        }]);
         return view('posts.show', [
             'post' => $post,
         ]);
