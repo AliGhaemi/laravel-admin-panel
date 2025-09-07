@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 
@@ -22,11 +24,6 @@ class Post extends Model
         });
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function toSearchableArray()
     {
         return [
@@ -36,4 +33,15 @@ class Post extends Model
             'description_length' => strlen($this->description),
         ];
     }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
