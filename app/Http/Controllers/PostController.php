@@ -49,7 +49,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $post->load(['comments' => function ($query) {
-            $query->whereNull('parent_id');
+            $query->whereNull('parent_id')->withCount('replies');
         }]);
         return view('posts.show', [
             'post' => $post,
