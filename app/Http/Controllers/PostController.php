@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Services\PostService;
 use Illuminate\Http\Request;
@@ -11,12 +12,13 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-   protected $postService;
+    protected $postService;
 
-   public function __construct(PostService $postService)
-   {
-       $this->postService = $postService;
-   }
+    public function __construct(PostService $postService)
+    {
+        $this->postService = $postService;
+    }
+
     public function index(PostService $service)
     {
         return view('posts.index', [
@@ -80,7 +82,7 @@ class PostController extends Controller
         $this->authorize('delete', $post);
         Storage::disk('public')->delete($post->image_path);
         $post->delete();
-        return Redirect::route('posts.index')->with('status', 'Post deleted successfully!' );
+        return Redirect::route('posts.index')->with('status', 'Post deleted successfully!');
     }
 
     public function search(Request $request)
