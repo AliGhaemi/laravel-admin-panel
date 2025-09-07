@@ -31,4 +31,36 @@
             {!! wordwrap($post->description, 200, '<br><br>') !!}
         </p>
     </div>
+    <div class="px-5">
+        <h1 class="text-4xl my-6 border border-x-0 border-t-0 border-b-utility py-4">Comments</h1>
+        <ul>
+            @foreach($post->comments as $comment)
+                <li class="grid grid-cols-6 gap-5 mx-20 py-6 border border-x-0 border-t-0 border-b-utility">
+                    <div class="mr-auto flex flex-row items-center gap-4">
+                        <img class="rounded-3xl w-8 h-8"
+                             src="{{ asset('storage/'. $comment->user->picture_path) }}"
+                             alt="{{ $comment->user->username }}">
+                        <p>From {{ $comment->user->username }}</p>
+                    </div>
+                    <div class="col-span-4">
+                        <p class="text-xl block">{{ $comment->body }}</p>
+                        <a href="">
+                            <x-button text="Load Replies"/>
+                        </a>
+                    </div>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+    <script>
+        // function loadReplies(commentId) {
+        //     // Example using the Fetch API
+        //     fetch(`/comments/${commentId}/replies`)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             // Handle the replies data
+        //             console.log(data.replies);
+        //         });
+        // }
+    </script>
 </x-layouts.layout>

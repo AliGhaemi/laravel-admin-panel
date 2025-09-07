@@ -11,12 +11,8 @@ use Illuminate\Support\Str;
  */
 class PostFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     protected $model = Post::class;
+
     public function definition(): array
     {
         $title = $this->faker->sentence();
