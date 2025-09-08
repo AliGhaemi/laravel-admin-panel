@@ -30,6 +30,11 @@
         <p class="text-xl">
             {!! wordwrap($post->description, 200, '<br><br>') !!}
         </p>
+        <hr>
+        <h1 class="text-4xl">Summerized By Ai</h1>
+        <br>
+        <p class="text-xl">{{ $summerized }}</p>
+        <hr>
     </div>
     <div class="mx-5 py-5 border border-x-0 border-b-0 border-t-utility">
         <form action="{{ route('comments.store', $post) }}" method="POST"

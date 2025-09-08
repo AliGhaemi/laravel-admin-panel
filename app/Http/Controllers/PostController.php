@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Services\AiService;
 use App\Services\PostService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -13,10 +14,12 @@ use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     protected $postService;
+    protected $aiService;
 
-    public function __construct(PostService $postService)
+    public function __construct(PostService $postService, AiService $aiService)
     {
         $this->postService = $postService;
+        $this->aiService = $aiService;
     }
 
     public function index(PostService $service)
@@ -48,11 +51,13 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $summerized_post_body = $this->aiService->getSummeryForString($post->description);
         $post->load(['comments' => function ($query) {
             $query->whereNull('parent_id')->withCount('replies');
         }]);
         return view('posts.show', [
             'post' => $post,
+            'summerized' => $summerized_post_body
         ]);
     }
 
