@@ -49,6 +49,14 @@
                                  src="{{ asset('storage/'. $comment->user->picture_path) }}"
                                  alt="{{ $comment->user->username }}">
                             <p>From {{ $comment->user->username }}</p>
+                            <form action="{{ route('comments.destroy', $comment) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="cursor-pointer hover:text-red-500 border border-r-0 border-y-0 border-l-utility px-5">
+                                    delete comment
+                                </button>
+                            </form>
                         </div>
                         <div>
                             <div>
@@ -56,9 +64,11 @@
                                 <div class="flex flex-row gap-5 mt-4">
                                     @if($comment->replies_count > 0)
                                         <p onclick="loadReplies({{ $comment->id }}, {{ $post->id }})"
-                                           class="cursor-pointer hover:text-blue-500 border border-l-0 border-y-0 border-r-utility pr-5">Load Replies</p>
+                                           class="cursor-pointer hover:text-blue-500 border border-l-0 border-y-0 border-r-utility pr-5">
+                                            Load Replies</p>
                                     @endif
-                                    <p onclick="openCommentSection({{ $comment->id }})" class="cursor-pointer hover:text-blue-500">Reply to
+                                    <p onclick="openCommentSection({{ $comment->id }})"
+                                       class="cursor-pointer hover:text-blue-500">Reply to
                                         this comment</p>
                                 </div>
                             </div>
