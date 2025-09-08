@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\PostRequest;
+use App\Jobs\GetSummerizedTextJob;
 use App\Models\Post;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -11,20 +12,25 @@ use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
-    public function getPosts(): LengthAwarePaginator {
+    public function getPosts(): LengthAwarePaginator
+    {
         $posts = Post::latest()->paginate(9);
         $posts->withQueryString();
 
         return $posts;
     }
-    public function storePost(array $data): Post {
+
+    public function storePost(array $data): Post
+    {
         $imagePath = $data['post-image']->store('posts', 'public');
-        return Post::create([
+        $post = Post::create([
             'image_path' => $imagePath,
             'description' => $data['post-description'],
             'title' => $data['post-title'],
             'user_id' => Auth::id()
         ]);
+        GetSummerizedTextJob::dispatch($post->id);
+        return $post;
     }
 
     public function updatePost(Post $post, array $data): Post

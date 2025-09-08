@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
-use App\Models\Comment;
 use App\Models\Post;
 use App\Services\AiService;
 use App\Services\PostService;
@@ -51,7 +50,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $summerized_post_body = $this->aiService->getSummeryForString($post->description);
+//        $summerized_post_body = $this->aiService->getSummeryForString($post->description);
+        $summerized_post_body = 'Text By AI';
         $post->load(['comments' => function ($query) {
             $query->whereNull('parent_id')->withCount('replies');
         }]);
