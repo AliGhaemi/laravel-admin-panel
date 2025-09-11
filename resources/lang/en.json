@@ -1,0 +1,12 @@
+{
+    "latest_posts": "Latest Posts",
+    "no_posts": "No posts to display!",
+    "search": "Search",
+    "submit_search": "Submit Search",
+    "create_post" : "Create Post",
+    "admin_panel" : "Admin Panel",
+    "logout" : "Logout",
+    "welcome": "Welcome",
+    "login": "Login",
+    "register": "Register"
+}

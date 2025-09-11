@@ -1,0 +1,12 @@
+{
+    "latest_posts": "Son Yazılar",
+    "no_posts": "Görüntülenecek gönderi yok!",
+    "search": "Aramak",
+    "submit_search": "Aramayı Gönder",
+    "create_post" : "Gönderi Oluştur",
+    "admin_panel" : "Yönetici Paneli",
+    "logout" : "Çıkış yap",
+    "welcome": "Hoş geldin",
+    "login": "Login",
+    "register": "Register"
+}
