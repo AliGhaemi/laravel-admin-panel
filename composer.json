@@ -16,6 +16,7 @@
         "laravel/scout": "^10.19",
         "laravel/tinker": "^2.10.1",
         "meilisearch/meilisearch-php": "^1.15",
+        "nnjeim/world": "^1.1",
         "tightenco/ziggy": "^2.5"
     },
     "require-dev": {
