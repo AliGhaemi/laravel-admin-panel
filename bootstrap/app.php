@@ -4,6 +4,7 @@ use App\Console\Commands\DeleteAdminAccessToken;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsAdminAccessTokenValid;
+use App\Http\Middleware\SetLocale;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Application;
@@ -32,6 +33,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo('/register');
         $middleware->web(append: [
             HandleInertiaRequests::class,
+            SetLocale::class,
 //            IsAdmin::class,
         ]);
         $middleware->alias([
