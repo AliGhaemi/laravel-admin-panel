@@ -1,6 +1,6 @@
 <div class="text-font px-5 py-3">
     @if($posts->isEmpty())
-        <p>No posts to display</p>
+        <p>{{ __('no_posts') }}</p>
 
     @else
         <ul class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">

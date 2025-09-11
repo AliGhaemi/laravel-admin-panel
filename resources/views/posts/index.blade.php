@@ -1,6 +1,6 @@
 <x-layouts.layout title="Posts">
     <div class="p-5">
-        <h1 class="text-3xl text-font mb-3">Latest Posts</h1>
+        <h1 class="text-3xl text-font mb-3">{{ __('latest_posts') }}</h1>
 
         {{--    <a href="{{ route('posts.create') }}">Create New Post</a>--}}
 

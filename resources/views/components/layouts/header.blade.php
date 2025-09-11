@@ -6,28 +6,28 @@
         <div class="mr-auto flex flex-row items-center gap-4">
             <img class="rounded-3xl w-12 h-12"
                  src="{{ asset('storage/'. Auth::user()->picture_path) }}" alt="{{ Auth::user()->username }}">
-            <p>Welcome {{ Auth::user()->username }}!</p>
+            <p>{{ __('welcome') }} {{ Auth::user()->username }}!</p>
         </div>
     @endif
     <x-search-field :action="route('posts.search')" />
     <div class="flex gap-3">
         @guest
             <a class="bg-utility text-font hover:cursor-pointer px-8 py-3 rounded-lg"
-               href="{{ route('login') }}">Login</a>
+               href="{{ route('login') }}">{{ __('login') }}</a>
             <a class="bg-utility text-font hover:cursor-pointer px-8 py-3 rounded-lg"
-               href="{{ route('register') }}">Register</a>
+               href="{{ route('register') }}">{{ __('register') }}</a>
         @endguest
         @auth
             <a class="bg-utility text-font hover:cursor-pointer px-8 py-3 rounded-lg"
-               href="{{ route('posts.store') }}">Create Post</a>
+               href="{{ route('posts.store') }}">{{ __('create_post') }}</a>
             @can('is-admin')
                 <a class="bg-utility text-font hover:cursor-pointer px-8 py-3 rounded-lg"
-                   href="{{ route('admin.handle') }}">Admin Panel</a>
+                   href="{{ route('admin.handle') }}">{{ __('admin_panel') }}</a>
             @endcan
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="bg-utility text-font hover:cursor-pointer px-8 py-3 rounded-lg">
-                    Logout
+                    {{ __('logout') }}
                 </button>
             </form>
         @endauth
