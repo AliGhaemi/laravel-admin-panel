@@ -8,5 +8,6 @@
     "logout" : "Çıkış yap",
     "welcome": "Hoş geldin",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "send_request": "Yeni Talep Yayınla"
 }

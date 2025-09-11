@@ -1,4 +1,4 @@
-<form action="/send-request" method="POST" class="grid grid-cols-2 gap-10" enctype="multipart/form-data">
+<form action="{{ route('send.request.store') }}" method="POST" class="grid grid-cols-2 gap-10" enctype="multipart/form-data">
     @csrf
     <div class="flex flex-col gap-3">
         <x-form-field class="w-full" label="Request Name" id="request-name" type="text"

@@ -7,6 +7,9 @@
             <img class="rounded-3xl w-12 h-12"
                  src="{{ asset('storage/'. Auth::user()->picture_path) }}" alt="{{ Auth::user()->username }}">
             <p>{{ __('welcome') }} {{ Auth::user()->username }}!</p>
+            <a href="@if(app()->getLocale() == 'en') lang/tr @else lang/en @endif" class="px-4 py-2 rounded-md border border-utility">
+                {{ Str::upper(app()->getLocale()) }}
+            </a>
         </div>
     @endif
     <x-search-field :action="route('posts.search')" />
@@ -20,6 +23,8 @@
         @auth
             <a class="bg-utility text-font hover:cursor-pointer px-8 py-3 rounded-lg"
                href="{{ route('posts.store') }}">{{ __('create_post') }}</a>
+            <a class="bg-utility text-font hover:cursor-pointer px-8 py-3 rounded-lg"
+               href="{{ route('send.request.create') }}">{{ __('send_request') }}</a>
             @can('is-admin')
                 <a class="bg-utility text-font hover:cursor-pointer px-8 py-3 rounded-lg"
                    href="{{ route('admin.handle') }}">{{ __('admin_panel') }}</a>

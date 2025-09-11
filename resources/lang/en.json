@@ -8,5 +8,6 @@
     "logout" : "Logout",
     "welcome": "Welcome",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "send_request": "Send Request"
 }
