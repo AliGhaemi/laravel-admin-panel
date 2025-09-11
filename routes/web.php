@@ -7,7 +7,7 @@ use App\Http\Controllers\SendRequestController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('{lang}', LocalizationController::class)->name('lang');
+Route::get('lang/{lang}', LocalizationController::class)->name('lang');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Home');
